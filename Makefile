@@ -6,14 +6,14 @@
 #    By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/23 11:51:41 by kmacquet          #+#    #+#              #
-#    Updated: 2021/02/23 13:56:40 by kmacquet         ###   ########.fr        #
+#    Updated: 2021/02/24 11:23:09 by kmacquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -I./includes
+FLAGS = -Wall -Wextra -Werror -Imlx -I./includes
 SRCS = get_next_line.c get_next_line_utils.c
 OBJS = $(SRCS:.c=.o)
 ARRCS = ar -rcs

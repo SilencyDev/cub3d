@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/23 17:29:03 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/02/24 17:12:05 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,40 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <mlx.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# define FORWARD 13
+# define LEFT 0
+# define BACKWARD 1
+# define RIGHT 2
+# define RLEFT 123
+# define RRIGHT 124
 # endif
 
-typedef struct	s_map
+typedef struct	s_data
 {
+	void	*mlx_ptr;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 	char	map[255][255];
 	int		one;
 	char	player;
 	int		nb_player;
 	int		i_player;
 	int		j_player;
-}				t_map;
+	int		forward;
+	int		left;
+	int		backward;
+	int		right;
+	int		rleft;
+	int		rright;
+}				t_data;
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
