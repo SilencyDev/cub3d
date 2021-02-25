@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/24 17:12:05 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/02/25 08:39:48 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# endif
 # define FORWARD 13
 # define LEFT 0
 # define BACKWARD 1
 # define RIGHT 2
 # define RLEFT 123
 # define RRIGHT 124
-# endif
 
 typedef struct	s_data
 {
@@ -44,8 +44,8 @@ typedef struct	s_data
 	int		one;
 	char	player;
 	int		nb_player;
-	int		i_player;
-	int		j_player;
+	int		y_player;
+	int		x_player;
 	int		forward;
 	int		left;
 	int		backward;
