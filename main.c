@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/25 13:10:35 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/02/25 17:53:29 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,80 +103,85 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	ft_square(t_data *data, int x, int y, int color)
+void	ft_square(t_data *data, int x, int y, int color, int n)
 {
 	int x_max;
 	int y_max;
 	int i;
 	int j;
 
-	x_max = x * 20;
-	y_max = y * 20;
+	x_max = x * n;
+	y_max = y * n;
 	i = j = 0;
-	while (i < 20)
+	while (i < n)
 	{
-		while (j < 20)
-			my_mlx_pixel_put(data, x_max + j++, y_max + i, color);
-		j = 0;
-		i++;
-	}
-}
-
-void	ft_direction_n(t_data *data, int x, int y, int color)
-{
-	int x_max;
-	int y_max;
-	int i;
-	int j;
-
-	x_max = x * 20;
-	y_max = y * 20;
-	i = j = 0;
-	while (i < 20)
-	{
-		if (i < 5)
-			while (j < 20)
-				my_mlx_pixel_put(data, x_max + j++, y_max + i, color);
-		j = 0;
-		i++;
-	}
-}
-
-void	ft_direction_s(t_data *data, int x, int y, int color)
-{
-	int x_max;
-	int y_max;
-	int i;
-	int j;
-
-	x_max = x * 20;
-	y_max = y * 20;
-	i = j = 0;
-	while (i < 20)
-	{
-		if (i > 15)
-			while (j < 20)
-				my_mlx_pixel_put(data, x_max + j++, y_max + i, color);
-		j = 0;
-		i++;
-	}
-}
-
-void	ft_direction_e(t_data *data, int x, int y, int color)
-{
-	int x_max;
-	int y_max;
-	int i;
-	int j;
-
-	x_max = x * 20;
-	y_max = y * 20;
-	i = j = 0;
-	while (i < 20)
-	{
-		while (j < 20)
+		while (j < n)
 		{
-			if (j > 15)
+			my_mlx_pixel_put(data, x_max + j, y_max + i, color);
+			if (i < n/64 || i > n*63/64 || j < n/64 || j > n*63/64)
+				my_mlx_pixel_put(data, x_max + j, y_max + i, 0x10000000);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
+void	ft_direction_n(t_data *data, int x, int y, int color, int n)
+{
+	int x_max;
+	int y_max;
+	int i;
+	int j;
+
+	x_max = x * n;
+	y_max = y * n;
+	i = j = 0;
+	while (i < n)
+	{
+		if (i < n/4)
+			while (j < n)
+				my_mlx_pixel_put(data, x_max + j++, y_max + i, color);
+		j = 0;
+		i++;
+	}
+}
+
+void	ft_direction_s(t_data *data, int x, int y, int color, int n)
+{
+	int x_max;
+	int y_max;
+	int i;
+	int j;
+
+	x_max = x * n;
+	y_max = y * n;
+	i = j = 0;
+	while (i < n)
+	{
+		if (i > (3 * n)/4)
+			while (j < n)
+				my_mlx_pixel_put(data, x_max + j++, y_max + i, color);
+		j = 0;
+		i++;
+	}
+}
+
+void	ft_direction_e(t_data *data, int x, int y, int color, int n)
+{
+	int x_max;
+	int y_max;
+	int i;
+	int j;
+
+	x_max = x * n;
+	y_max = y * n;
+	i = j = 0;
+	while (i < n)
+	{
+		while (j < n)
+		{
+			if (j > (3 * n)/4)
 				my_mlx_pixel_put(data, x_max + j, y_max + i, color);
 			j++;
 		}
@@ -185,21 +190,21 @@ void	ft_direction_e(t_data *data, int x, int y, int color)
 	}
 }
 
-void	ft_direction_w(t_data *data, int x, int y, int color)
+void	ft_direction_w(t_data *data, int x, int y, int color, int n)
 {
 	int x_max;
 	int y_max;
 	int i;
 	int j;
 
-	x_max = x * 20;
-	y_max = y * 20;
+	x_max = x * n;
+	y_max = y * n;
 	i = j = 0;
-	while (i < 20)
+	while (i < n)
 	{
-		while (j < 20)
+		while (j < n)
 		{
-			if (j < 5)
+			if (j < n/4)
 				my_mlx_pixel_put(data, x_max + j, y_max + i, color);
 			j++;
 		}
@@ -240,6 +245,12 @@ int	key_press(int keycode, t_data *data)
 		data->rleft = 1;
 	else if (keycode == RRIGHT)
 		data->rright = 1;
+	else if (keycode == SPACE)
+	{
+		mlx_destroy_image(data->mlx_ptr, data->img);
+		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
+		exit(0);
+	}
 	printf("%s\n", "press");
 	return (1);
 }
@@ -381,20 +392,20 @@ int	ft_imprim(t_data *data)
 		while (data->map[y][x])
 		{
 			if (data->map[y][x] == '0')
-				ft_square(data, x, y, 0x00FF0000);
+				ft_square(data, x, y, 0x00FF0000, SIZE);
 			if (data->map[y][x] == '1')
-				ft_square(data, x, y, 0x50FFFFFF);
+				ft_square(data, x, y, 0x50FFFFFF, SIZE);
 			if (is_charset(data->map[y][x], "SWEN"))
 			{
-				ft_square(data, x, y, 0x000000FF);
+				ft_square(data, x, y, 0x000000FF, SIZE);
 				if (data->player == 'N')
-					ft_direction_n(data, x, y, 0x00FFFF00);
+					ft_direction_n(data, x, y, 0x00FFFF00, SIZE);
 				else if (data->player == 'S')
-					ft_direction_s(data, x, y, 0x00FFFF00);
+					ft_direction_s(data, x, y, 0x00FFFF00, SIZE);
 				else if (data->player == 'E')
-					ft_direction_e(data, x, y, 0x00FFFF00);
+					ft_direction_e(data, x, y, 0x00FFFF00, SIZE);
 				else
-					ft_direction_w(data, x, y, 0x00FFFF00);
+					ft_direction_w(data, x, y, 0x00FFFF00, SIZE);
 			}
 			x++;
 		}
@@ -414,6 +425,8 @@ void	ft_init(t_data *data)
 	data->forward = 0;
 	data->backward = 0;
 }
+
+
 
 int	main(int argc, char **argv)
 {
@@ -448,8 +461,8 @@ int	main(int argc, char **argv)
 		}
 		ft_init(&data);
 		data.mlx_ptr = mlx_init();
-		data.mlx_win = mlx_new_window(data.mlx_ptr, 500, 500, "Hello world!");
-		data.img = mlx_new_image(data.mlx_ptr, 500, 500);
+		data.mlx_win = mlx_new_window(data.mlx_ptr, 650, 650, "Hello world!");
+		data.img = mlx_new_image(data.mlx_ptr, 650, 650);
 		data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 		mlx_hook(data.mlx_win, 2, 1L<<0, key_press, &data);
 		mlx_hook(data.mlx_win, 3, 1L<<1, key_release, &data);

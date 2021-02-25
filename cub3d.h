@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/25 08:39:48 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:21:28 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define RIGHT 2
 # define RLEFT 123
 # define RRIGHT 124
+# define SPACE 49
+# define SIZE 64
 
 typedef struct	s_data
 {
