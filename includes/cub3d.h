@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/26 10:42:12 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/02/26 16:23:35 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct	s_data
 	int		nb_player;
 	int		y_player;
 	int		x_player;
+	int		y_pplayer;
+	int		x_pplayer;
 	int		forward;
 	int		left;
 	int		backward;
@@ -56,6 +58,7 @@ typedef struct	s_data
 	int		rright;
 }				t_data;
 
+void	ft_player(t_data *data, int x, int y, int color);
 int		ft_imprim(t_data *data);
 int		is_map_valid(t_data *data);
 int		key_release(int keycode, t_data *data);

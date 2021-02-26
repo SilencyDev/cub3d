@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/26 10:43:08 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/02/26 16:49:32 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,27 +81,28 @@ int	ft_imprim(t_data *data)
 	{
 		while (data->map[y][x])
 		{
-			if (data->map[y][x] == '0')
+			if (is_charset(data->map[y][x], "0SEWN"))
 				ft_square(data, x, y, 0x00FF0000);
 			if (data->map[y][x] == '1')
 				ft_square(data, x, y, 0x50FFFFFF);
-			if (is_charset(data->map[y][x], "SWEN"))
-			{
-				ft_square(data, x, y, 0x000000FF);
-				if (data->player == 'N')
-					ft_direction_n(data, x, y, 0x00FFFF00);
-				else if (data->player == 'S')
-					ft_direction_s(data, x, y, 0x00FFFF00);
-				else if (data->player == 'E')
-					ft_direction_e(data, x, y, 0x00FFFF00);
-				else
-					ft_direction_w(data, x, y, 0x00FFFF00);
-			}
+			// if (is_charset(data->map[y][x], "SWEN"))
+			// {
+			// 	ft_square(data, x, y, 0x000000FF);
+			// 	if (data->player == 'N')
+			// 		ft_direction_n(data, x, y, 0x00FFFF00);
+			// 	else if (data->player == 'S')
+			// 		ft_direction_s(data, x, y, 0x00FFFF00);
+			// 	else if (data->player == 'E')
+			// 		ft_direction_e(data, x, y, 0x00FFFF00);
+			// 	else
+			// 		ft_direction_w(data, x, y, 0x00FFFF00);
+			// }
 			x++;
 		}
 		x = 0;
 		y++;
 	}
+	my_mlx_pixel_put(data, data->x_pplayer, data->y_pplayer, 0x50FFFFFF);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);
 }
@@ -132,12 +133,14 @@ int	main(int argc, char **argv)
 		}
 		data.map[y][x] = '\0';
 		close(fd);
+		ft_init(&data);
 		if (!is_map_valid(&data))
 		{
 			printf("la map est invalide");
 			return (-1);
 		}
-		ft_init(&data);
+		data.y_pplayer = data.y_player * 64 + 32;
+		data.x_pplayer = data.x_player * 64 + 32;
 		data.mlx_ptr = mlx_init();
 		data.mlx_win = mlx_new_window(data.mlx_ptr, 650, 650, "Hello world!");
 		data.img = mlx_new_image(data.mlx_ptr, 650, 650);
