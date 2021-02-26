@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/25 16:21:28 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/02/26 10:42:12 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,26 @@ typedef struct	s_data
 	int		rright;
 }				t_data;
 
+int		ft_imprim(t_data *data);
+int		is_map_valid(t_data *data);
+int		key_release(int keycode, t_data *data);
+int		key_press(int keycode, t_data *data);
+void	ft_rotate_r(t_data *data);
+void	ft_rotate_l(t_data *data);
+void	ft_move_f(t_data *data);
+void	ft_move_b(t_data *data);
+void	ft_move_l(t_data *data);
+void	ft_move_r(t_data *data);
+void	ft_move(t_data *data);
+void	ft_square(t_data *data, int x, int y, int color);
+void	ft_direction_n(t_data *data, int x, int y, int color);
+void	ft_direction_s(t_data *data, int x, int y, int color);
+void	ft_direction_e(t_data *data, int x, int y, int color);
+void	ft_direction_w(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	ft_init(t_data *data);
+void	ft_print_tab(t_data *data);
+char	is_charset(char c, char *charset);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
