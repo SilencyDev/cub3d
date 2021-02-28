@@ -58,3 +58,17 @@ void	ft_init(t_data *data)
 	data->y_player = 0;
 	data->y_pplayer = 0;
 }
+
+void	ft_init_player(t_data *data)
+{
+	data->x_pplayer = data->x_player * SIZE + SIZE / 2;
+	data->y_pplayer = data->y_player * SIZE + SIZE / 2;
+	if (data->player == 'N')
+		data->pa = PI / 2;
+	if (data->player == 'W')
+		data->pa = PI;
+	if (data->player == 'S')
+		data->pa = 3/2 * PI;
+	if (data->player == 'E')
+		data->pa = 0;
+}

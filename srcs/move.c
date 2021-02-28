@@ -28,6 +28,19 @@ void	ft_move(t_data *data)
 		ft_rotate_l(data);
 }
 
+// void	ft_move_f(t_data *data)
+// {
+// 	if (data->player == 'N')
+// 		data->pdy -= 5;
+// 	else if (data->player == 'S')
+// 		data->pdy += 5;
+// 	else if (data->player == 'E')
+// 		data->pdx += 5;
+// 	else if (data->player == 'W')
+// 		data->pdx -= 5;
+// 	data->forward = 0;
+// }
+
 void	ft_move_f(t_data *data)
 {
 	if (data->player == 'N')

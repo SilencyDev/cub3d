@@ -20,17 +20,32 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <mlx.h>
+# include <math.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-# define FORWARD 13
-# define LEFT 0
-# define BACKWARD 1
-# define RIGHT 2
-# define RLEFT 123
-# define RRIGHT 124
-# define SPACE 49
+# define FORWARD 119
+# define LEFT 97
+# define BACKWARD 115
+# define RIGHT 100
+# define RLEFT 65361
+# define RRIGHT 65363
+// # define FORWARD 13
+// # define LEFT 0
+// # define BACKWARD 1
+// # define RIGHT 2
+// # define RLEFT 123
+// # define RRIGHT 124
+// # define SPACE 49
+# define SPACE 32
+# define FOV 60
+# define N 90
+# define E 0
+# define S 270
+# define W 180
+# define PI 3.14159
+# define FOVR (FOV * PI / 180)
 # define SIZE 64
 
 typedef struct	s_data
@@ -50,6 +65,13 @@ typedef struct	s_data
 	int		x_player;
 	int		y_pplayer;
 	int		x_pplayer;
+	double	pdx;
+	double	pdy;
+	double	pa;
+	double	hx;
+	double	hy;
+	double	vx;
+	double	vy;
 	int		forward;
 	int		left;
 	int		backward;
@@ -58,6 +80,9 @@ typedef struct	s_data
 	int		rright;
 }				t_data;
 
+void	ft_init_player(t_data *data);
+void	check_vertical(t_data *data);
+void	check_horizontal(t_data *data);
 void	ft_player(t_data *data, int x, int y, int color);
 int		ft_imprim(t_data *data);
 int		is_map_valid(t_data *data);

@@ -12,28 +12,38 @@
 
 #include "cub3d.h"
 
+// void	ft_rotate_r(t_data *data)
+// {
+// 	data->pa += 0.1;
+// 	if (data->pa > 2*PI)
+// 		data->pa-=2*PI;
+// 	data->pdx=cos(data->pa)*5;
+// 	data->pdy=sin(data->pa)*5;
+// 	data->rright = 0;
+// }
+
+// void	ft_rotate_l(t_data *data)
+// {
+// 	data->pa -= 0.1;
+// 	if (data->pa < 0)
+// 		data->pa+=2*PI;
+// 	data->pdx=cos(data->pa)*5;
+// 	data->pdy=sin(data->pa)*5;
+// 	data->rleft = 0;
+// }
+
 void	ft_rotate_r(t_data *data)
 {
-	if (data->player == 'N')
-		data->player = 'E';
-	else if (data->player == 'E')
-		data->player = 'S';
-	else if (data->player == 'S')
-		data->player = 'W';
-	else if (data->player == 'W')
-		data->player = 'N';
+	data->pa -= 0.1;
+	if (data->pa < 0)
+		data->pa = (2 * PI) - data->pa;
 	data->rright = 0;
 }
 
 void	ft_rotate_l(t_data *data)
 {
-	if (data->player == 'N')
-		data->player = 'W';
-	else if (data->player == 'W')
-		data->player = 'S';
-	else if (data->player == 'S')
-		data->player = 'E';
-	else if (data->player == 'E')
-		data->player = 'N';
+	data->pa += 0.1;
+	if (data->pa >= 2*PI)
+		data->pa = data->pa - (2 * PI);
 	data->rleft = 0;
 }
