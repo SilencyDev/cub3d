@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 10:05:38 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/26 10:16:06 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/01 15:20:15 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@
 
 void	ft_rotate_r(t_data *data)
 {
-	data->pa -= 0.1;
+	data->pa -= 2;
 	if (data->pa < 0)
-		data->pa = (2 * PI) - data->pa;
+		data->pa = 360 - data->pa;
 	data->rright = 0;
 }
 
 void	ft_rotate_l(t_data *data)
 {
-	data->pa += 0.1;
-	if (data->pa >= 2*PI)
-		data->pa = data->pa - (2 * PI);
+	data->pa += 2;
+	if (data->pa >= 360)
+		data->pa = data->pa - 360;
 	data->rleft = 0;
 }

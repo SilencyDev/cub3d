@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/26 16:49:32 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/01 17:17:12 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,26 @@ void	check_horizontal(t_data *data)
 
 	ya = SIZE;
 	xa = 0;
-	if (data->pa < PI && data->pa > 0)
+	if (data->pa < 180 && data->pa > 0)
 	{
 		data->hy = floor(data->y_pplayer/SIZE) * SIZE - 1;
+		xa = SIZE / tan(data->pa* PI/180);
 		ya *= -1;
 	}
-	else
-		data->hy = floor(data->y_pplayer/SIZE) * SIZE + SIZE;
-	
-	data->hx = floor(data->x_pplayer + (data->y_pplayer - data->hy)/tan(data->pa));
-	xa = floor(SIZE / tan(data->pa));
-	while (data->map[(int)floor(data->hy / SIZE)][(int)floor(data->hx / SIZE)] != '1' && data->map[(int)floor((data->hy + ya) / SIZE)][(int)floor((data->hx + xa) / SIZE)])
+	else if (data->pa > 180 && data->pa < 360)
 	{
-		data->hx += xa;
-		data->hy += ya;
+		data->hy = floor(data->y_pplayer/SIZE) * SIZE + SIZE;
+		xa = -SIZE / tan(data->pa* PI/180);
+	}
+	if (data->pa != 180 || data->pa != 0)
+	{
+		data->hx = data->x_pplayer + (data->y_pplayer - data->hy)/tan(data->pa* PI/180);
+		while (data->map[(int)floor(data->hy / SIZE)][(int)floor(data->hx / SIZE)] != '1' &&
+			data->map[(int)floor((data->hy) / SIZE)][(int)floor((data->hx) / SIZE)])
+		{
+			data->hx += xa;
+			data->hy += ya;
+		}
 	}
 }
 
@@ -100,19 +106,26 @@ void	check_vertical(t_data *data)
 
 	ya = 0;
 	xa = SIZE;
-	if (data->pa > (PI / 2) && data->pa < (3 / 2 * PI))
+	if (data->pa > 90 && data->pa < 270)
 	{
 		data->vx = floor(data->x_pplayer/SIZE) * SIZE - 1;
+		ya = SIZE * tan(data->pa * PI/180);
 		xa *= -1;
 	}
-	else
-		data->vx = floor(data->x_pplayer/SIZE) * SIZE + SIZE;
-	data->vy = floor(data->y_pplayer + (data->x_pplayer - data->vx) * tan(data->pa));
-	ya = floor(SIZE * tan(data->pa));
-	while (data->map[(int)floor(data->vy / SIZE)][(int)floor(data->vx / SIZE)] != '1' && data->map[(int)floor((data->vy + ya) / SIZE)][(int)floor((data->vx + xa) / SIZE)])
+	else if ((data->pa < 90 && data > 0) || (data->pa > 270 && data->pa < 360))
 	{
-		data->vx += xa;
-		data->vy += ya;
+		data->vx = floor(data->x_pplayer/SIZE) * SIZE + SIZE;
+		ya = -SIZE * tan(data->pa* PI/180);
+	}
+	if (data->pa != 90 || data->pa != 270)
+	{
+		data->vy = data->y_pplayer + (data->x_pplayer - data->vx) * tan(data->pa * PI/180);
+		while (data->map[(int)floor(data->vy / SIZE)][(int)floor(data->vx / SIZE)] != '1' &&
+			data->map[(int)floor((data->vy) / SIZE)][(int)floor((data->vx) / SIZE)])
+		{
+			data->vx += xa;
+			data->vy += ya;
+		}
 	}
 }
 
@@ -151,24 +164,30 @@ int	ft_imprim(t_data *data)
 	// 	x = 0;
 	// 	y++;
 	// }
-	i = data->pa;
-	data->pa -= (FOVR/2);
-	data->pa = data->pa < 0 ? (2 * PI) - data->pa : data->pa ;
-	while (data->pa < (i + (FOVR/2)))
-	{
-		data->pa = data->pa >= 2 * PI ? data->pa - (2 * PI) : data->pa;
+	// i = data->pa;
+	// data->pa -= (FOV/2);
+	// data->pa = data->pa < 0 ? 360 - data->pa : data->pa ;
+	// while (data->pa < (i + (FOV/2)))
+	// {
+	// 	data->pa = data->pa >= 360 ? data->pa - 360 : data->pa;
+		ft_init_hv(data);
 		check_horizontal(data);
 		check_vertical(data);
-		if (abs((int)floor((data->x_pplayer - (int)data->vx)/cos(data->pa))) < abs((int)floor((data->x_pplayer - (int)data->hx)/cos(data->pa))))
+		data->dv = fabs((int)(data->x_pplayer - (int)data->vx)/cos(data->pa));
+		data->dh = fabs((int)(data->x_pplayer - (int)data->hx)/cos(data->pa));
+		if (data->dv < data->dh || data->hx == 0)
 		{
-			data->hx = data->vx;
-			data->hy = data->vy;
+			if (data->vx != 0)
+			{
+				data->hx = data->vx;
+				data->hy = data->vy;
+			}
 		}	
 		my_mlx_pixel_put(data, (int)floor(data->hx), (int)floor(data->hy), 0x000000FF);
-		data->pa += 0.1;
-	}
-	printf("%f\n", data->pa);
-	data->pa = i;
+		// data->pa += 1;
+	// }
+	// data->pa = i;
+	printf("x:[%d] y:[%d] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] a:[%.f]\n",data->x_pplayer ,data->y_pplayer,data->vx,data->vy,data->hx,data->hy,data->pa);
 	my_mlx_pixel_put(data, data->x_pplayer, data->y_pplayer, 0x00FFFFFF);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);

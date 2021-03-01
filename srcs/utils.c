@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:39:39 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/26 16:39:54 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:56:38 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,19 @@ void	ft_init_player(t_data *data)
 	data->x_pplayer = data->x_player * SIZE + SIZE / 2;
 	data->y_pplayer = data->y_player * SIZE + SIZE / 2;
 	if (data->player == 'N')
-		data->pa = PI / 2;
+		data->pa = N;
 	if (data->player == 'W')
-		data->pa = PI;
+		data->pa = W;
 	if (data->player == 'S')
-		data->pa = 3/2 * PI;
+		data->pa = S;
 	if (data->player == 'E')
-		data->pa = 0;
+		data->pa = E;
+}
+
+void	ft_init_hv(t_data *data)
+{
+	data->hx = 0;
+	data->hy = 0;
+	data->vx = 0;
+	data->vy = 0;
 }
