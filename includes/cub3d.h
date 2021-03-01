@@ -25,27 +25,29 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-// # define FORWARD 119
-// # define LEFT 97
-// # define BACKWARD 115
-// # define RIGHT 100
-// # define RLEFT 65361
-// # define RRIGHT 65363
-// # define SPACE 32
-# define FORWARD 13
-# define LEFT 0
-# define BACKWARD 1
-# define RIGHT 2
-# define RLEFT 123
-# define RRIGHT 124
-# define SPACE 49
+# define FORWARD 119
+# define LEFT 97
+# define BACKWARD 115
+# define RIGHT 100
+# define RLEFT 65361
+# define RRIGHT 65363
+# define SPACE 32
+// # define FORWARD 13
+// # define LEFT 0
+// # define BACKWARD 1
+// # define RIGHT 2
+// # define RLEFT 123
+// # define RRIGHT 124
+// # define SPACE 49
 # define FOV 60
 # define N 90
 # define E 0
 # define S 270
 # define W 180
-# define PI M_PI
+# define PI 3.14159265359
+# define DTOR (PI / 180)
 # define FOVR (FOV * PI / 180)
+# define cwall (64 / 138)
 # define SIZE 64
 
 typedef struct	s_data
