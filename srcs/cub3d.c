@@ -95,16 +95,14 @@ void	check_horizontal(t_data *data)
 		if (data->pa != PI && data->pa != 0 && data->pa != 2 * PI)
 		{
 			data->hx = data->x_pplayer + (data->y_pplayer - data->hy)/tan(data->pa);
-			if (data->mymap < (int)floor((data->hy)) && data->mxmap < (int)floor((data->hx)))
-			{
-				while (data->map[(int)floor((data->hy) / SIZE)][(int)floor((data->hx) / SIZE)] &&
+				while (data->mymap < (int)floor((data->hy)) && data->mxmap < (int)floor((data->hx)) &&
+					data->map[(int)floor((data->hy) / SIZE)][(int)floor((data->hx) / SIZE)] &&
 					data->map[(int)floor(data->hy / SIZE)][(int)floor(data->hx / SIZE)] != '1')
 				{
 					printf("\nHfsy:[%f] Hfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->hy / SIZE), floor((data->hx / SIZE)), xa ,ya);
 					data->hx += xa;
 					data->hy += ya;
 				}
-			}
 		}
 	}
 }
@@ -134,15 +132,13 @@ void	check_vertical(t_data *data)
 		if (data->pa != PI / 2 && data->pa != (3 * PI / 2))
 		{
 			data->vy = data->y_pplayer + (data->x_pplayer - data->vx) * tan(data->pa);
-			if (data->mymap < (int)floor((data->vy)) && data->mxmap < (int)floor((data->vx)))
+			while (data->mymap < (int)floor((data->vy)) && data->mxmap < (int)floor((data->vx)) &&
+				data->map[(int)floor((data->vy) / SIZE)][(int)floor((data->vx) / SIZE)] &&
+				data->map[(int)floor(data->vy / SIZE)][(int)floor(data->vx / SIZE)] != '1')
 			{
-				while (data->map[(int)floor((data->vy) / SIZE)][(int)floor((data->vx) / SIZE)] &&
-					data->map[(int)floor(data->vy / SIZE)][(int)floor(data->vx / SIZE)] != '1')
-				{
-					printf("\nVfsy:[%f] Vfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->vy / SIZE), floor((data->vx / SIZE)), xa ,ya);
-					data->vx += xa;
-					data->vy += ya;
-				}
+				printf("\nVfsy:[%f] Vfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->vy / SIZE), floor((data->vx / SIZE)), xa ,ya);
+				data->vx += xa;
+				data->vy += ya;
 			}
 		}
 	}
