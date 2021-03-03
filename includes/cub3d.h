@@ -21,6 +21,8 @@
 # include <fcntl.h>
 # include <mlx.h>
 # include <math.h>
+# include <limits.h>
+# include <float.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -39,16 +41,23 @@
 // # define RLEFT 123
 // # define RRIGHT 124
 // # define SPACE 49
+# define WIDTH 320
+# define WIDTH2 (WIDTH / 2)
+# define HEIGHT 200
+# define HEIGHT2 (HEIGHT / 2)
 # define FOV 60
-# define N 90
-# define E 0
-# define S 270
-# define W 180
-# define PI 3.14159265359
-# define DTOR (PI / 180)
-# define FOVR (FOV * PI / 180)
-# define cwall (64 / 138)
+# define FOV2 (FOV / 2)
+# define INC (FOV * 1.0 / WIDTH)
+# define PI 3.141592653589793
+# define N (2.0 * PI)
+# define E 0.0
+# define S (PI * 3.0/2.0)
+# define W PI
+# define DTOR (PI / 180.0)
+# define FOVR (FOV * PI / 180.0)
 # define SIZE 64
+# define DPROJ (WIDTH2 / tan(FOV2 * DTOR))
+# define CWALL (SIZE / DPROJ)
 
 typedef struct	s_data
 {
@@ -67,6 +76,8 @@ typedef struct	s_data
 	int		x_player;
 	int		y_pplayer;
 	int		x_pplayer;
+	int		mxmap;
+	int		mymap;
 	double	pdx;
 	double	pdy;
 	double	pa;
@@ -84,6 +95,7 @@ typedef struct	s_data
 	int		rright;
 }				t_data;
 
+void	init_max_map(t_data *data);
 void	ft_init_hv(t_data *data);
 void	ft_init_player(t_data *data);
 void	check_vertical(t_data *data);

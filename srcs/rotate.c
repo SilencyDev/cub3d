@@ -34,16 +34,16 @@
 
 void	ft_rotate_r(t_data *data)
 {
-	data->pa -= 2;
+	data->pa -= 0.1;
 	if (data->pa < 0)
-		data->pa = 360 + data->pa;
+		data->pa = 2*PI + data->pa;
 	data->rright = 0;
 }
 
 void	ft_rotate_l(t_data *data)
 {
-	data->pa += 2;
-	if (data->pa > 360)
-		data->pa = data->pa - 360;
+	data->pa += 0.1;
+	if (data->pa > 2*PI)
+		data->pa = data->pa - 2*PI;
 	data->rleft = 0;
 }

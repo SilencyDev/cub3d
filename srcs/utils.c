@@ -57,6 +57,7 @@ void	ft_init(t_data *data)
 	data->x_pplayer = 0;
 	data->y_player = 0;
 	data->y_pplayer = 0;
+	init_max_map(data);
 }
 
 void	ft_init_player(t_data *data)
@@ -79,4 +80,25 @@ void	ft_init_hv(t_data *data)
 	data->hy = 0;
 	data->vx = 0;
 	data->vy = 0;
+}
+
+void		init_max_map(t_data *data)
+{
+	int	i;
+	int	j;
+	int	j_max;
+
+	i = j = j_max = 0;
+	while (data->map[i][j])
+	{
+		while (data->map[i][j])
+		{
+			j++;
+		}
+		j_max = j_max < j ? j : j_max;
+		j = 0;
+		i++;
+	}
+	data->mxmap = j_max - 1;
+	data->mymap = i - 1;
 }

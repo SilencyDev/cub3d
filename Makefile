@@ -13,7 +13,7 @@
 NAME = cub3D
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -Iminilibx-linux -I./includes
+FLAGS = -Wall -Wextra -Werror -g -Iminilibx-linux -I./includes
 SRCS =	srcs/get_next_line.c srcs/get_next_line_utils.c \
 		srcs/draw.c srcs/move.c srcs/utils.c srcs/rotate.c \
 		srcs/keys.c srcs/cub3d.c
