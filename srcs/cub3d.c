@@ -76,33 +76,32 @@ void	check_horizontal(t_data *data)
 
 	ya = SIZE;
 	xa = 0;
-	if (data->pa == PI || data->pa == 0 || data->pa == (2 * PI))
-		data->hx = DBL_MAX;
+	if (!sin(data->pa))
+		data->hx = data->mxmap;
 	else
 	{
-		if (data->pa < PI && data->pa > 0)
+		if (sin(data->pa) > 0)
 		{
 			data->hy = floor(data->y_pplayer/SIZE) * SIZE - 1;
 			xa = SIZE / tan(data->pa);
 			ya *= -1;
 		}
-		else if (data->pa > PI && data->pa < PI * 2)
+		else if (sin(data->pa) < 0)
 		{
-			printf("\ntest %f\n", data->pa);
 			data->hy = floor(data->y_pplayer/SIZE) * SIZE + SIZE;
 			xa = -SIZE / tan(data->pa);
 		}
-		if (data->pa != PI && data->pa != 0 && data->pa != 2 * PI)
+		data->hx = data->x_pplayer + (data->y_pplayer - data->hy)/tan(data->pa);
+		if (data->mxmap > (int)floor((data->hx) / SIZE) && (int)floor((data->hx) / SIZE) > 0)
 		{
-			data->hx = data->x_pplayer + (data->y_pplayer - data->hy)/tan(data->pa);
-				while (data->mymap < (int)floor((data->hy)) && data->mxmap < (int)floor((data->hx)) &&
-					data->map[(int)floor((data->hy) / SIZE)][(int)floor((data->hx) / SIZE)] &&
-					data->map[(int)floor(data->hy / SIZE)][(int)floor(data->hx / SIZE)] != '1')
-				{
-					printf("\nHfsy:[%f] Hfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->hy / SIZE), floor((data->hx / SIZE)), xa ,ya);
-					data->hx += xa;
-					data->hy += ya;
-				}
+			while (data->mymap > (int)floor((data->hy) / SIZE) &&
+				data->map[(int)floor((data->hy) / SIZE)][(int)floor((data->hx) / SIZE)] &&
+				data->map[(int)floor(data->hy / SIZE)][(int)floor(data->hx / SIZE)] != '1')
+			{
+				// printf("\nHfsy:[%f] Hfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->hy / SIZE), floor((data->hx / SIZE)), xa ,ya);
+				data->hx += xa;
+				data->hy += ya;
+			}
 		}
 	}
 }
@@ -114,29 +113,29 @@ void	check_vertical(t_data *data)
 
 	ya = 0;
 	xa = SIZE;
-	if (data->pa == (PI / 2) || data->pa == (3 * PI / 2))
-		data->vy = DBL_MAX;
+	if (!cos(data->pa))
+		data->vy = data->mymap;
 	else
 	{
-		if (data->pa > (PI / 2) && data->pa < (3 * PI / 2))
+		if (cos(data->pa) < 0)
 		{
 			data->vx = floor(data->x_pplayer/SIZE) * SIZE - 1;
 			ya = SIZE * tan(data->pa);
 			xa *= -1;
 		}
-		else if ((data->pa < (PI / 2) && data->pa >= 0) || (data->pa > (3 * PI / 2) && data->pa <= (PI * 2)))
+		else if (cos(data->pa) > 0)
 		{
 			data->vx = floor(data->x_pplayer/SIZE) * SIZE + SIZE;
 			ya = -SIZE * tan(data->pa);
 		}
-		if (data->pa != PI / 2 && data->pa != (3 * PI / 2))
+		data->vy = data->y_pplayer + (data->x_pplayer - data->vx) * tan(data->pa);
+		if (data->mymap > (int)floor((data->vy) / SIZE) && (int)floor((data->vy) / SIZE) > 0)
 		{
-			data->vy = data->y_pplayer + (data->x_pplayer - data->vx) * tan(data->pa);
-			while (data->mymap < (int)floor((data->vy)) && data->mxmap < (int)floor((data->vx)) &&
+			while (data->mymap > (int)floor((data->vy) / SIZE) &&
 				data->map[(int)floor((data->vy) / SIZE)][(int)floor((data->vx) / SIZE)] &&
 				data->map[(int)floor(data->vy / SIZE)][(int)floor(data->vx / SIZE)] != '1')
 			{
-				printf("\nVfsy:[%f] Vfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->vy / SIZE), floor((data->vx / SIZE)), xa ,ya);
+				// printf("\nVfsy:[%f] Vfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->vy / SIZE), floor((data->vx / SIZE)), xa ,ya);
 				data->vx += xa;
 				data->vy += ya;
 			}
@@ -146,14 +145,14 @@ void	check_vertical(t_data *data)
 
 int	ft_imprim(t_data *data)
 {
-	int	y;
+	// int	y;
 	int	x;
 	int		width;
 	double	i;
 	int		p_wall;
 	int	height;
 
-	y = 0;
+	// y = 0;
 	x = 0;
 	i = 0;
 	width = WIDTH;
@@ -196,12 +195,9 @@ int	ft_imprim(t_data *data)
 		data->dh = fabs((data->x_pplayer - data->hx)/cos(data->pa));
 		if (data->dv < data->dh)
 		{
-			if (data->vx != 0)
-			{
-				data->hx = data->vx;
-				data->hy = data->vy;
-				data->dh = data->dv * cos(FOV2 * DTOR);
-			}
+			data->hx = data->vx;
+			data->hy = data->vy;
+			data->dh = data->dv * cos(FOV2 * DTOR);
 		}
 		p_wall = ceil((SIZE / data->dh) * DPROJ);
 		// my_mlx_pixel_put(data, (int)floor(data->hx), (int)floor(data->hy), 0x000000FF);
@@ -219,12 +215,12 @@ int	ft_imprim(t_data *data)
 		data->pa += (FOV * DTOR/ WIDTH);
 		data->pa = data->pa < 0 ? 2*PI + data->pa : data->pa;
 		data->pa = data->pa > 2*PI ? data->pa - 2*PI : data->pa;
-		printf("x:[%d] y:[%d] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] a:[%f] width:[%d]\n", data->x_pplayer, data->y_pplayer, data->vx,data->vy, data->hx,data->hy ,data->pa, y++);
+		// printf("x:[%d] y:[%d] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] a:[%f] width:[%d]\n", data->x_pplayer, data->y_pplayer, data->vx,data->vy, data->hx,data->hy ,data->pa, y++);
 	}
 	x = 0;
 	data->pa = i;
-	printf("FOV:[%f]\n", 1.0 * FOV / WIDTH);
-	my_mlx_pixel_put(data, data->x_pplayer, data->y_pplayer, 0x00FFFFFF);
+	// printf("FOV:[%f]\n", 1.0 * FOV / WIDTH);
+	// my_mlx_pixel_put(data, data->x_pplayer, data->y_pplayer, 0x00FFFFFF);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);
 }
@@ -263,8 +259,8 @@ int	main(int argc, char **argv)
 		}
 		ft_init_player(&data);
 		data.mlx_ptr = mlx_init();
-		data.mlx_win = mlx_new_window(data.mlx_ptr, 650, 650, "Hello world!");
-		data.img = mlx_new_image(data.mlx_ptr, 650, 650);
+		data.mlx_win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Hello world!");
+		data.img = mlx_new_image(data.mlx_ptr, WIDTH, HEIGHT);
 		data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 		mlx_hook(data.mlx_win, 2, 1L<<0, key_press, &data);
 		mlx_hook(data.mlx_win, 3, 1L<<1, key_release, &data);

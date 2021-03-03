@@ -41,12 +41,13 @@
 // # define RLEFT 123
 // # define RRIGHT 124
 // # define SPACE 49
-# define WIDTH 320
+# define WIDTH 1080
 # define WIDTH2 (WIDTH / 2)
-# define HEIGHT 200
+# define HEIGHT 720
 # define HEIGHT2 (HEIGHT / 2)
 # define FOV 60
 # define FOV2 (FOV / 2)
+# define SPEED 10
 # define INC (FOV * 1.0 / WIDTH)
 # define PI 3.141592653589793
 # define N (2.0 * PI)
@@ -107,10 +108,10 @@ int		key_release(int keycode, t_data *data);
 int		key_press(int keycode, t_data *data);
 void	ft_rotate_r(t_data *data);
 void	ft_rotate_l(t_data *data);
-void	ft_move_f(t_data *data);
-void	ft_move_b(t_data *data);
-void	ft_move_l(t_data *data);
-void	ft_move_r(t_data *data);
+void	ft_move_f(t_data *data, double pdx, double pdy);
+void	ft_move_b(t_data *data, double pdx, double pdy);
+void	ft_move_l(t_data *data, double pdx, double pdy);
+void	ft_move_r(t_data *data, double pdx, double pdy);
 void	ft_move(t_data *data);
 void	ft_square(t_data *data, int x, int y, int color);
 void	ft_direction_n(t_data *data, int x, int y, int color);

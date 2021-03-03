@@ -14,82 +14,76 @@
 
 void	ft_move(t_data *data)
 {
+	double pdx;
+	double pdy;
+
+	pdx = cos(data->pa) * SPEED;
+	pdy = sin(data->pa) * SPEED;
 	if (data->forward)
-		ft_move_f(data);
+		ft_move_f(data, pdx, pdy);
 	else if (data->backward)
-		ft_move_b(data);
+		ft_move_b(data, pdx, pdy);
 	else if (data->left)
-		ft_move_l(data);
+		ft_move_l(data, pdx, pdy);
 	else if (data->right)
-		ft_move_r(data);
+		ft_move_r(data, pdx, pdy);
 	else if (data->rright)
 		ft_rotate_r(data);
 	else if (data->rleft)
 		ft_rotate_l(data);
 }
 
-// void	ft_move_f(t_data *data)
-// {
-// 	if (data->player == 'N')
-// 		data->pdy -= 5;
-// 	else if (data->player == 'S')
-// 		data->pdy += 5;
-// 	else if (data->player == 'E')
-// 		data->pdx += 5;
-// 	else if (data->player == 'W')
-// 		data->pdx -= 5;
-// 	data->forward = 0;
-// }
-
-void	ft_move_f(t_data *data)
+void	ft_move_f(t_data *data, double pdx, double pdy)
 {
-	if (data->player == 'N')
-		--data->y_pplayer;
-	else if (data->player == 'S')
-		++data->y_pplayer;
-	else if (data->player == 'E')
-		++data->x_pplayer;
-	else if (data->player == 'W')
-		--data->x_pplayer;
+	data->x_pplayer += pdx;
+	data->y_pplayer -= pdy;
 	data->forward = 0;
 }
 
-void	ft_move_b(t_data *data)
+void	ft_move_b(t_data *data, double pdx, double pdy)
 {
-	if (data->player == 'N')
-		++data->y_pplayer;
-	else if (data->player == 'S')
-		--data->y_pplayer;
-	else if (data->player == 'E')
-		--data->x_pplayer;
-	else if (data->player == 'W')
-		++data->x_pplayer;
+	data->x_pplayer -= pdx;
+	data->y_pplayer += pdy;
 	data->backward = 0;
 }
 
-void	ft_move_l(t_data *data)
+// void	ft_move_f(t_data *data)
+// {
+// 	if (data->player == 'N')
+// 		--data->y_pplayer;
+// 	else if (data->player == 'S')
+// 		++data->y_pplayer;
+// 	else if (data->player == 'E')
+// 		++data->x_pplayer;
+// 	else if (data->player == 'W')
+// 		--data->x_pplayer;
+// 	data->forward = 0;
+// }
+
+// void	ft_move_b(t_data *data)
+// {
+// 	if (data->player == 'N')
+// 		++data->y_pplayer;
+// 	else if (data->player == 'S')
+// 		--data->y_pplayer;
+// 	else if (data->player == 'E')
+// 		--data->x_pplayer;
+// 	else if (data->player == 'W')
+// 		++data->x_pplayer;
+// 	data->backward = 0;
+// }
+
+void	ft_move_l(t_data *data, double pdx, double pdy)
 {
-	if (data->player == 'N')
-		--data->x_pplayer;
-	else if (data->player == 'S')
-		++data->x_pplayer;
-	else if (data->player == 'E')
-		--data->y_pplayer;
-	else if (data->player == 'W')
-		++data->y_pplayer;
+	data->x_pplayer += pdy;
+	data->y_pplayer += pdx;
 	data->left = 0;
 }
 
-void	ft_move_r(t_data *data)
+void	ft_move_r(t_data *data, double pdx, double pdy)
 {
-	if (data->player == 'N')
-		++data->x_pplayer;
-	else if (data->player == 'S')
-		--data->x_pplayer;
-	else if (data->player == 'E')
-		++data->y_pplayer;
-	else if (data->player == 'W')
-		--data->y_pplayer;
+	data->x_pplayer -= pdy;
+	data->y_pplayer -= pdx;
 	data->right = 0;
 }
 
