@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/01 17:17:12 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:24:20 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ void	check_horizontal(t_data *data)
 	ya = SIZE;
 	xa = 0;
 	if (!sin(data->pa))
-		data->hx = data->mxmap;
+		data->hx = DBL_MAX;
 	else
 	{
 		if (sin(data->pa) > 0)
 		{
-			data->hy = floor(data->y_pplayer/SIZE) * SIZE - 1;
+			data->hy = floor(data->y_pplayer/SIZE) * SIZE - 0.000000001;
 			xa = SIZE / tan(data->pa);
 			ya *= -1;
 		}
@@ -114,12 +114,12 @@ void	check_vertical(t_data *data)
 	ya = 0;
 	xa = SIZE;
 	if (!cos(data->pa))
-		data->vy = data->mymap;
+		data->vy = DBL_MAX;
 	else
 	{
 		if (cos(data->pa) < 0)
 		{
-			data->vx = floor(data->x_pplayer/SIZE) * SIZE - 1;
+			data->vx = floor(data->x_pplayer/SIZE) * SIZE - 0.000000001;
 			ya = SIZE * tan(data->pa);
 			xa *= -1;
 		}
@@ -140,6 +140,20 @@ void	check_vertical(t_data *data)
 				data->vy += ya;
 			}
 		}
+	}
+}
+
+void	ft_wtf(int height, double p_wall, int x, t_data *data)
+{
+	while (height)
+	{
+		if ((height < (HEIGHT / 2 - (p_wall / 2) + p_wall)) && (height > (HEIGHT / 2 - p_wall / 2)))
+				my_mlx_pixel_put(data, x, height, 0x00404040);
+		else if (!(height < (HEIGHT / 2 - (p_wall / 2) + p_wall)))
+			my_mlx_pixel_put(data, x, height, 0x00FF0000);
+		else
+			my_mlx_pixel_put(data, x, height, 0x00000000);
+		height--;
 	}
 }
 
@@ -185,7 +199,6 @@ int	ft_imprim(t_data *data)
 	// }
 	i = data->pa;
 	data->pa -= (FOV/2)* DTOR;
-
 	while (width--)
 	{
 		ft_init_hv(data);
@@ -197,30 +210,21 @@ int	ft_imprim(t_data *data)
 		{
 			data->hx = data->vx;
 			data->hy = data->vy;
-			data->dh = data->dv * cos(FOV2 * DTOR);
+			data->dh = data->dv;
 		}
+		data->dh = data->dh * cos(i - data->pa);
 		p_wall = ceil((SIZE / data->dh) * DPROJ);
-		// my_mlx_pixel_put(data, (int)floor(data->hx), (int)floor(data->hy), 0x000000FF);
-		while (height)
-		{
-			if ((height < (HEIGHT2 - (p_wall / 2) + p_wall)) && (height > (HEIGHT2 - p_wall / 2)))
-				my_mlx_pixel_put(data, x, height, 0x000000FF);
-			else
-				my_mlx_pixel_put(data, x, height, 0x00000000);
-			height--;
-		}
+		ft_wtf(height, p_wall, x, data);
+
 		height = HEIGHT;
 		x++;
-		// data->pa += 0.15;
 		data->pa += (FOV * DTOR/ WIDTH);
 		data->pa = data->pa < 0 ? 2*PI + data->pa : data->pa;
 		data->pa = data->pa > 2*PI ? data->pa - 2*PI : data->pa;
-		// printf("x:[%d] y:[%d] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] a:[%f] width:[%d]\n", data->x_pplayer, data->y_pplayer, data->vx,data->vy, data->hx,data->hy ,data->pa, y++);
 	}
 	x = 0;
 	data->pa = i;
-	// printf("FOV:[%f]\n", 1.0 * FOV / WIDTH);
-	// my_mlx_pixel_put(data, data->x_pplayer, data->y_pplayer, 0x00FFFFFF);
+		printf("x:[%f] y:[%f] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] dh:[%.2f] dv:[%.2f] a:[%f]\n", data->x_pplayer, data->y_pplayer, data->vx,data->vy ,data->hx ,data->hy ,data->dh,data->dv ,data->pa);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);
 }
@@ -245,6 +249,7 @@ int	main(int argc, char **argv)
 				printf("%c", data.map[y][x]);
 				x++;
 			}
+			free(line - x);
 			printf("%c",'\n');
 			x = 0;
 			y++;

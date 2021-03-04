@@ -13,7 +13,7 @@
 NAME = cub3D
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -Imlx -I./includes
+FLAGS = -Wall -Wextra -Werror -g -Iminilibx-linux -I./includes
 SRCS =	srcs/get_next_line.c srcs/get_next_line_utils.c \
 		srcs/draw.c srcs/move.c srcs/utils.c srcs/rotate.c \
 		srcs/keys.c srcs/cub3d.c
@@ -27,7 +27,7 @@ all: $(NAME)
 	$(CC) $(FLAGS) -o $(<:.c=.o) -c $<
 
 $(NAME):$(OBJS)
-	$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJS) -L minilibx-linux -lmlx -lm -lbsd -lX11 -lXext -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
