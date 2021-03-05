@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/05 15:44:50 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/05 16:15:14 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ typedef struct	s_data
 	int		right;
 	int		rleft;
 	int		rright;
-	t_texture	texture;
+	t_texture	texture[4];
 }				t_data;
 
-unsigned int	get_image_pixel(t_data *data, int x, int y);
+unsigned int	get_image_pixel(t_data *data, int x, int y, int n);
 void	init_max_map(t_data *data);
 void	ft_init_hv(t_data *data);
 void	ft_init_player(t_data *data);
@@ -120,7 +120,7 @@ void	check_horizontal(t_data *data);
 void	ft_player(t_data *data, int x, int y, int color);
 int		ft_imprim(t_data *data);
 int		is_map_valid(t_data *data);
-void	ft_render(int height, double p_wall, int x, t_data *data);
+void	ft_render(double p_wall, int x, t_data *data);
 int		key_release(int keycode, t_data *data);
 int		key_press(int keycode, t_data *data);
 void	ft_rotate_r(t_data *data);
