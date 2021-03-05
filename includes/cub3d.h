@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/04 17:17:04 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:44:50 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@
 
 typedef struct		s_texture
 {
-	char			*img;
-	int				texdir;
-	double			wallx;
-	int				texx;
-	int				texy;
-	double			step;
-	double			texpos;
+	void			*img_ptr;
+	void			*addr_ptr;
+	int				img_width;
+	int				img_height;
+	int				bits_per_pixel_t;
+	int				line_length_t;
+	int				endian_t;
 }					t_texture;
 
 typedef struct	s_data
@@ -99,15 +99,19 @@ typedef struct	s_data
 	double	vy;
 	double	dv;
 	double	dh;
+	double	d;
+	double	dx;
+	double	dy;
 	int		forward;
 	int		left;
 	int		backward;
 	int		right;
 	int		rleft;
 	int		rright;
-	t_texture	texture[4];
+	t_texture	texture;
 }				t_data;
 
+unsigned int	get_image_pixel(t_data *data, int x, int y);
 void	init_max_map(t_data *data);
 void	ft_init_hv(t_data *data);
 void	ft_init_player(t_data *data);
@@ -116,7 +120,7 @@ void	check_horizontal(t_data *data);
 void	ft_player(t_data *data, int x, int y, int color);
 int		ft_imprim(t_data *data);
 int		is_map_valid(t_data *data);
-void	ft_wtf(int height, double p_wall, int x, t_data *data);
+void	ft_render(int height, double p_wall, int x, t_data *data);
 int		key_release(int keycode, t_data *data);
 int		key_press(int keycode, t_data *data);
 void	ft_rotate_r(t_data *data);

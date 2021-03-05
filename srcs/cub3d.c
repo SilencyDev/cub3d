@@ -6,153 +6,39 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/04 17:24:20 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:44:42 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_map_valid(t_data *data)
+unsigned int	get_image_pixel(t_data *data, int x, int y)
 {
-	int	y;
-	int	x;
+	char	*dst;
 
-	y = 0;
-	x = 0;
-	data->one = 0;
-	data->nb_player = 0;
-	while (data->map[y][x])
-	{
-		while (data->map[y][x] == ' ')
-			x++;
-		while (data->map[y][x])
-		{
-			if (!is_charset(data->map[y][x], "012 NSEW") || (data->one == 0 && !is_charset(data->map[y][x], "1 ")))
-				return (0);
-			if (data->map[y][x] == '1')
-				data->one = 1;
-			if (data->map[y][x] == ' ')
-				data->one = 0;
-			if (is_charset(data->map[y][x], "NSEW"))
-			{
-				data->nb_player += 1;
-				if (data->nb_player > 1)
-					return (0);
-				data->player = is_charset(data->map[y][x], "NSEW");
-				data->y_player = y;
-				data->x_player = x;
-			}
-			if (data->map[y][x++] == '0' && y == 0)
-				return (0);
-		}
-		data->one = 0;
-		while (data->map[y][--x])
-		{
-			if (data->map[y][x] == '1')
-				data->one = 1;
-			if (data->one == 0 && is_charset(data->map[y][x], "02NSEW"))
-				return (0);
-		}
-		data->one = 0;
-		y++;
-		x = 0;
-	}
-	if (!is_charset(data->player, "NSEW"))
-		return (0);
-	while (data->map[y - 2][x])
-	{
-		if (data->map[y - 2][x] == '0')
-			if (data->map[y - 1][x] != '1')
-				return (0);
-		x++;
-	}
-	return (1);
+	dst = data->texture.addr_ptr + (y * data->texture.line_length_t + x * (data->texture.bits_per_pixel_t / 8));
+	return (*(unsigned int*)dst);
 }
 
-void	check_horizontal(t_data *data)
+void	ft_render(int height, double p_wall, int x, t_data *data)
 {
-	double	ya;
-	double	xa;
+	double	i;
 
-	ya = SIZE;
-	xa = 0;
-	if (!sin(data->pa))
-		data->hx = DBL_MAX;
-	else
-	{
-		if (sin(data->pa) > 0)
-		{
-			data->hy = floor(data->y_pplayer/SIZE) * SIZE - 0.000000001;
-			xa = SIZE / tan(data->pa);
-			ya *= -1;
-		}
-		else if (sin(data->pa) < 0)
-		{
-			data->hy = floor(data->y_pplayer/SIZE) * SIZE + SIZE;
-			xa = -SIZE / tan(data->pa);
-		}
-		data->hx = data->x_pplayer + (data->y_pplayer - data->hy)/tan(data->pa);
-		if (data->mxmap > (int)floor((data->hx) / SIZE) && (int)floor((data->hx) / SIZE) > 0)
-		{
-			while (data->mymap > (int)floor((data->hy) / SIZE) &&
-				data->map[(int)floor((data->hy) / SIZE)][(int)floor((data->hx) / SIZE)] &&
-				data->map[(int)floor(data->hy / SIZE)][(int)floor(data->hx / SIZE)] != '1')
-			{
-				// printf("\nHfsy:[%f] Hfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->hy / SIZE), floor((data->hx / SIZE)), xa ,ya);
-				data->hx += xa;
-				data->hy += ya;
-			}
-		}
-	}
-}
-
-void	check_vertical(t_data *data)
-{
-	double	ya;
-	double	xa;
-
-	ya = 0;
-	xa = SIZE;
-	if (!cos(data->pa))
-		data->vy = DBL_MAX;
-	else
-	{
-		if (cos(data->pa) < 0)
-		{
-			data->vx = floor(data->x_pplayer/SIZE) * SIZE - 0.000000001;
-			ya = SIZE * tan(data->pa);
-			xa *= -1;
-		}
-		else if (cos(data->pa) > 0)
-		{
-			data->vx = floor(data->x_pplayer/SIZE) * SIZE + SIZE;
-			ya = -SIZE * tan(data->pa);
-		}
-		data->vy = data->y_pplayer + (data->x_pplayer - data->vx) * tan(data->pa);
-		if (data->mymap > (int)floor((data->vy) / SIZE) && (int)floor((data->vy) / SIZE) > 0)
-		{
-			while (data->mymap > (int)floor((data->vy) / SIZE) &&
-				data->map[(int)floor((data->vy) / SIZE)][(int)floor((data->vx) / SIZE)] &&
-				data->map[(int)floor(data->vy / SIZE)][(int)floor(data->vx / SIZE)] != '1')
-			{
-				// printf("\nVfsy:[%f] Vfsx:[%f] xa:[%f] ya:[%f]\n\n", floor(data->vy / SIZE), floor((data->vx / SIZE)), xa ,ya);
-				data->vx += xa;
-				data->vy += ya;
-			}
-		}
-	}
-}
-
-void	ft_wtf(int height, double p_wall, int x, t_data *data)
-{
+	i = 0;
 	while (height)
 	{
 		if ((height < (HEIGHT / 2 - (p_wall / 2) + p_wall)) && (height > (HEIGHT / 2 - p_wall / 2)))
-				my_mlx_pixel_put(data, x, height, 0x00404040);
+		{
+			if (data->dh >= data->dv)
+				my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dy % 64, (int)round((p_wall - i))* 64 / p_wall));
+			else
+				my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64 , (int)round((p_wall - i))* 64 / p_wall));
+			i++;
+		}
 		else if (!(height < (HEIGHT / 2 - (p_wall / 2) + p_wall)))
 			my_mlx_pixel_put(data, x, height, 0x00FF0000);
 		else
-			my_mlx_pixel_put(data, x, height, 0x00000000);
+			my_mlx_pixel_put(data, x, height, 0x00909090);
 		height--;
 	}
 }
@@ -206,25 +92,22 @@ int	ft_imprim(t_data *data)
 		check_vertical(data);
 		data->dv = fabs((data->x_pplayer - data->vx)/cos(data->pa));
 		data->dh = fabs((data->x_pplayer - data->hx)/cos(data->pa));
-		if (data->dv < data->dh)
-		{
-			data->hx = data->vx;
-			data->hy = data->vy;
-			data->dh = data->dv;
-		}
-		data->dh = data->dh * cos(i - data->pa);
-		p_wall = ceil((SIZE / data->dh) * DPROJ);
+			data->dx = data->dv < data->dh ? data->vx : data->hx;
+			data->dy = data->dv < data->dh ? data->vy : data->hy;
+			data->d = data->dv < data->dh ? data->dv : data->dh;
+		data->d = data->d * cos(i - data->pa);
+		p_wall = ceil((SIZE / data->d) * DPROJ);
 		ft_wtf(height, p_wall, x, data);
 
 		height = HEIGHT;
 		x++;
 		data->pa += (FOV * DTOR/ WIDTH);
-		data->pa = data->pa < 0 ? 2*PI + data->pa : data->pa;
-		data->pa = data->pa > 2*PI ? data->pa - 2*PI : data->pa;
+		data->pa = data->pa < 0 ? 2 * PI + data->pa : data->pa;
+		data->pa = data->pa > 2 * PI ? data->pa - 2 * PI : data->pa;
 	}
 	x = 0;
 	data->pa = i;
-		printf("x:[%f] y:[%f] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] dh:[%.2f] dv:[%.2f] a:[%f]\n", data->x_pplayer, data->y_pplayer, data->vx,data->vy ,data->hx ,data->hy ,data->dh,data->dv ,data->pa);
+	// printf("x:[%f] y:[%f] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] dh:[%.2f] dv:[%.2f] a:[%f]\n", data->x_pplayer, data->y_pplayer, data->vx,data->vy ,data->hx ,data->hy ,data->dh,data->dv ,data->pa);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);
 }
@@ -236,6 +119,7 @@ int	main(int argc, char **argv)
 	int				x;
 	char			*line;
 	t_data			data;
+	char		*relative_path = "./textures/bricks.xpm";
 
 	y = 0;
 	if (argc == 2)
@@ -265,12 +149,17 @@ int	main(int argc, char **argv)
 		ft_init_player(&data);
 		data.mlx_ptr = mlx_init();
 		data.mlx_win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Hello world!");
+		data.texture.img_height = 64;
+		data.texture.img_width = 64;
+		data.texture.img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, relative_path, &data.texture.img_width, &data.texture.img_height);
+		data.texture.addr_ptr = mlx_get_data_addr(data.texture.img_ptr, &data.texture.bits_per_pixel_t, &data.texture.line_length_t, &data.texture.endian_t);
 		data.img = mlx_new_image(data.mlx_ptr, WIDTH, HEIGHT);
 		data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 		mlx_hook(data.mlx_win, 2, 1L<<0, key_press, &data);
 		mlx_hook(data.mlx_win, 3, 1L<<1, key_release, &data);
 		mlx_loop_hook(data.mlx_ptr, ft_imprim, &data);
 		mlx_loop(data.mlx_ptr);
+		mlx_destroy_image(data.mlx_ptr, data.texture.img_ptr);
 	}
 	return (0);
 }

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    linux.Makefile                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/23 11:51:41 by kmacquet          #+#    #+#              #
-#    Updated: 2021/02/26 10:45:49 by kmacquet         ###   ########.fr        #
+#    Updated: 2021/03/05 13:58:11 by kmacquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror -g -Iminilibx-linux -I./includes
 SRCS =	srcs/get_next_line.c srcs/get_next_line_utils.c \
 		srcs/draw.c srcs/move.c srcs/utils.c srcs/rotate.c \
-		srcs/keys.c srcs/cub3d.c
+		srcs/keys.c srcs/cub3d.c srcs/raycasting.c srcs/parsing.c
 OBJS = $(SRCS:.c=.o)
 ARRCS = ar -rcs
 RM = rm -f
