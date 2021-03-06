@@ -42,9 +42,7 @@
 // # define RRIGHT 124
 // # define SPACE 49
 # define WIDTH 1080
-# define WIDTH2 (WIDTH / 2)
 # define HEIGHT 720
-# define HEIGHT2 (HEIGHT / 2)
 # define FOV 60.0
 # define FOV2 (FOV / 2)
 # define SPEED 10.0
@@ -55,10 +53,7 @@
 # define S (PI * 3.0/2.0)
 # define W PI
 # define DTOR (PI / 180.0)
-# define FOVR (FOV * PI / 180.0)
 # define SIZE 64.0
-# define DPROJ (WIDTH2 / tan(FOV2 * DTOR))
-# define CWALL (SIZE / DPROJ)
 
 typedef struct		s_texture
 {
@@ -71,10 +66,17 @@ typedef struct		s_texture
 	int				endian_t;
 }					t_texture;
 
+typedef struct	s_sprite
+{
+	double	sx;
+	double	sy;
+}				t_sprite;
+
+
 typedef struct	s_data
 {
-	int	screenx;
-	int	screeny;
+	int		screenx;
+	int		screeny;
 	void	*mlx_ptr;
 	void	*mlx_win;
 	void	*img;
@@ -113,8 +115,11 @@ typedef struct	s_data
 	int		rleft;
 	int		rright;
 	t_texture	texture[5];
+	t_sprite	sprite;
 }				t_data;
 
+void	ft_init_texture(t_data *data);
+void	ft_minimap(t_data *data);
 int		ft_exit(t_data *data);
 unsigned int	get_image_pixel(t_data *data, int x, int y, int n);
 void	init_max_map(t_data *data);
@@ -136,10 +141,6 @@ void	ft_move_l(t_data *data, double pdx, double pdy);
 void	ft_move_r(t_data *data, double pdx, double pdy);
 void	ft_move(t_data *data);
 void	ft_square(t_data *data, int x, int y, int color);
-void	ft_direction_n(t_data *data, int x, int y, int color);
-void	ft_direction_s(t_data *data, int x, int y, int color);
-void	ft_direction_e(t_data *data, int x, int y, int color);
-void	ft_direction_w(t_data *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	ft_init(t_data *data);
 void	ft_print_tab(t_data *data);

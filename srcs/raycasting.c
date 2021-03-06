@@ -12,6 +12,47 @@
 
 #include "cub3d.h"
 
+void		ft_render(double p_wall, int x, t_data *data)
+{
+	int		height;
+	double	offset;
+	double	i;
+	int 	n;
+
+	i = 0;
+	n = 0;
+	offset = (p_wall - data->height)/2;
+	height = data->height;
+	while (height)
+	{
+		if ((height < data->height / 2 - (p_wall / 2) + p_wall) && (height > data->height / 2 - p_wall / 2))
+		{
+			if (data->dh >= data->dv)
+			{
+				n = cos(data->pa) > 0 ? 1 : 3;
+				if (p_wall > data->height)
+					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dy % 64, (int)round((p_wall - offset - i))* 64 / p_wall, n));
+				else
+					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dy % 64, (int)round((p_wall - i))* 64 / p_wall, n));
+			}
+			else
+			{
+				n = sin(data->pa) > 0 ? 0 : 2;
+				if (p_wall > data->height)
+					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64, (int)round((p_wall - offset - i))* 64 / p_wall, n));
+				else
+					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64 , (int)round((p_wall- i))* 64 / p_wall, n));
+			}
+			i++;
+		}
+		else if (!(height < (data->height / 2 - (p_wall / 2) + p_wall)))
+			my_mlx_pixel_put(data, x, height, 0x00FF0000);
+		else
+			my_mlx_pixel_put(data, x, height, 0x00909090);
+		height--;
+	}
+}
+
 void	check_horizontal(t_data *data)
 {
 	double	ya;

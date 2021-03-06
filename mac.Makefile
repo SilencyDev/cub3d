@@ -16,7 +16,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Imlx -I./includes
 SRCS =	srcs/get_next_line.c srcs/get_next_line_utils.c \
 		srcs/draw.c srcs/move.c srcs/utils.c srcs/rotate.c \
-		srcs/keys.c srcs/cub3d.c srcs/raycasting.c srcs/parsing.c
+		srcs/keys.c srcs/cub3d.c srcs/raycasting.c srcs/parsing.c \
+		srcs/init.c
 OBJS = $(SRCS:.c=.o)
 ARRCS = ar -rcs
 RM = rm -f

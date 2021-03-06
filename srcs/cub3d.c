@@ -12,55 +12,29 @@
 
 #include "cub3d.h"
 
-unsigned int	get_image_pixel(t_data *data, int x, int y, int n)
+void	ft_minimap(t_data *data)
 {
-	char	*dst;
+	int	y;
+	int	x;
+	int	offset;
 
-	dst = data->texture[n].addr_ptr + (y * data->texture[n].line_length_t + x * (data->texture[n].bits_per_pixel_t / 8));
-	return (*(unsigned int*)dst);
-}
-
-void	ft_render(double p_wall, int x, t_data *data)
-{
-	int	height;
-	double	i;
-	int n;
-
-	height = data->height;
-	i = 0;
-	n = 0;
-	while (height)
+	y = 0;
+	x = 0;
+	offset = 1;
+	while (data->map[y][x])
 	{
-		if ((height < (data->height / 2 - (p_wall / 2) + p_wall)) && (height > (data->height / 2 - p_wall / 2)))
+		while (data->map[y][x])
 		{
-			if (data->dh >= data->dv)
-			{
-				n = cos(data->pa) > 0 ? 1 : 3;
-				if (p_wall > data->height)
-				{
-					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dy % 64, (int)round((p_wall -((p_wall - data->height)/2)- i))* 64 / p_wall, n));
-				}
-				else
-					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dy % 64, (int)round((p_wall - i))* 64 / p_wall, n));
-			}
-			else
-			{
-				n = sin(data->pa) > 0 ? 0 : 2;
-				if (p_wall > data->height)
-				{
-					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64, (int)round((p_wall -((p_wall - data->height)/2)- i))* 64 / p_wall, n));
-				}
-				else
-				my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64 , (int)round((p_wall- i))* 64 / p_wall, n));
-			}
-			i++;
+			if (is_charset(data->map[y][x], "02SEWN"))
+				ft_square(data, x + offset, y + offset, 0x40FF0000);
+			if (data->map[y][x] == '1')
+				ft_square(data, x + offset, y + offset, 0x40FFFFFF);
+			x++;
 		}
-		else if (!(height < (data->height / 2 - (p_wall / 2) + p_wall)))
-			my_mlx_pixel_put(data, x, height, 0x00FF0000);
-		else
-			my_mlx_pixel_put(data, x, height, 0x00909090);
-		height--;
+		x = 0;
+		y++;
 	}
+	ft_player(data, round(data->x_pplayer/64) + offset, round(data->y_pplayer/64) + offset, 0x40FFFF00);
 }
 
 int	ft_imprim(t_data *data)
@@ -76,31 +50,6 @@ int	ft_imprim(t_data *data)
 	i = 0;
 	width = data->width;
 	ft_move(data);
-	// while (data->map[y][x])
-	// {
-	// 	while (data->map[y][x])
-	// 	{
-	// 		if (is_charset(data->map[y][x], "0SEWN"))
-	// 			ft_square(data, x, y, 0x00FF0000);
-	// 		if (data->map[y][x] == '1')
-	// 			ft_square(data, x, y, 0xFFFFFFFF);
-	// 		if (is_charset(data->map[y][x], "SWEN"))
-	// 		{
-	// 			ft_square(data, x, y, 0x000000FF);
-	// 			if (data->player == 'N')
-	// 				ft_direction_n(data, x, y, 0x00FFFF00);
-	// 			else if (data->player == 'S')
-	// 				ft_direction_s(data, x, y, 0x00FFFF00);
-	// 			else if (data->player == 'E')
-	// 				ft_direction_e(data, x, y, 0x00FFFF00);
-	// 			else
-	// 				ft_direction_w(data, x, y, 0x00FFFF00);
-	// 		}
-	// 		x++;
-	// 	}
-	// 	x = 0;
-	// 	y++;
-	// }
 	i = data->pa;
 	data->pa -= (FOV/2)* DTOR;
 	while (width--)
@@ -115,40 +64,18 @@ int	ft_imprim(t_data *data)
 		data->d = data->dv < data->dh ? data->dv : data->dh;
 		data->d = data->d * cos(i - data->pa);
 		p_wall = ceil((SIZE / data->d) * (data->width / 2) / tan(FOV2 * DTOR));
-		ft_render(p_wall, x, data);
-		x++;
+		ft_render(p_wall, x++, data);
 		data->pa += (FOV * DTOR/ data->width);
 		data->pa = data->pa < 0 ? 2 * PI + data->pa : data->pa;
 		data->pa = data->pa > 2 * PI ? data->pa - 2 * PI : data->pa;
 	}
 	x = 0;
 	data->pa = i;
+	ft_minimap(data);
 	// printf("x:[%f] y:[%f] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] dh:[%.2f] dv:[%.2f] a:[%f]\n", data->x_pplayer, data->y_pplayer, data->vx,data->vy ,data->hx ,data->hy ,data->dh,data->dv ,data->pa);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);
 }
-
-void ft_init_texture(t_data *data)
-{
-	int	n;
-	char			relative_path[5][100] = 
-	{"./textures/bricks.xpm",
-	"./textures/bark.xpm",
-	"./textures/coal.xpm",
-	"./textures/stone.xpm",
-	"./textures/sprite.xpm"};
-
-	n = 0;
-	while (n < 5)
-	{
-		data->texture[n].img_height = 64;
-		data->texture[n].img_width = 64;
-		data->texture[n].img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, relative_path[n], &data->texture[n].img_width, &data->texture[n].img_height);
-		data->texture[n].addr_ptr = mlx_get_data_addr(data->texture[n].img_ptr, &data->texture[n].bits_per_pixel_t, &data->texture[n].line_length_t, &data->texture[n].endian_t);
-		n++;
-	}
-}
-
 
 int	main(int argc, char **argv)
 {

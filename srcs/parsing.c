@@ -33,6 +33,11 @@ int	is_map_valid(t_data *data)
 				data->one = 1;
 			if (data->map[y][x] == ' ')
 				data->one = 0;
+			if (data->map[y][x] == '2')
+			{
+				data->sprite.sx = x * 64 + 32;
+				data->sprite.sy = y * 64 + 32;
+			}
 			if (is_charset(data->map[y][x], "NSEW"))
 			{
 				data->nb_player += 1;
