@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 17:30:14 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/06 17:35:13 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/06 18:00:38 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ void		init_max_map(t_data *data)
 
 void	ft_init_texture(t_data *data)
 {
-	int	n;
-	char			relative_path[5][100] = 
-	{"./textures/bricks.xpm",
-	"./textures/bark.xpm",
-	"./textures/coal.xpm",
-	"./textures/stone.xpm",
+	int		n;
+	char	relative_path[5][100] = 
+	{"./textures/north.xpm",
+	"./textures/east.xpm",
+	"./textures/south.xpm",
+	"./textures/west.xpm",
 	"./textures/sprite.xpm"};
 
 	n = 0;

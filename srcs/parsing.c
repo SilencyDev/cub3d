@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:53:26 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/05 13:53:58 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/06 19:10:47 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// int	is_resolution_valid(t_data *data)
+// {
+// 	return (0);
+// }
 
 int	is_map_valid(t_data *data)
 {

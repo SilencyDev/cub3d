@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:51:53 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/05 13:52:28 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/06 17:53:29 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void		ft_render(double p_wall, int x, t_data *data)
 			i++;
 		}
 		else if (!(height < (data->height / 2 - (p_wall / 2) + p_wall)))
-			my_mlx_pixel_put(data, x, height, 0x00FF0000);
+			my_mlx_pixel_put(data, x, height, 0x00990000);
 		else
-			my_mlx_pixel_put(data, x, height, 0x00909090);
+			my_mlx_pixel_put(data, x, height, 0x00707070);
 		height--;
 	}
 }

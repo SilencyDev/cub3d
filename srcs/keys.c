@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 10:20:56 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/06 17:35:09 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/06 17:47:42 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,20 @@ int	ft_exit(t_data *data)
 	if (data->mlx_win)
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	exit(0);
+}
+
+void	ft_rotate_r(t_data *data)
+{
+	data->pa += 0.1;
+	if (data->pa < 0)
+		data->pa = 2 * PI + data->pa;
+	data->rright = 0;
+}
+
+void	ft_rotate_l(t_data *data)
+{
+	data->pa -= 0.1;
+	if (data->pa > 2 * PI)
+		data->pa = data->pa - 2 * PI;
+	data->rleft = 0;
 }

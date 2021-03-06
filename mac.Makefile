@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    mac.Makefile                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+         #
+#    By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/23 11:51:41 by kmacquet          #+#    #+#              #
-#    Updated: 2021/03/05 13:54:22 by kmacquet         ###   ########.fr        #
+#    Updated: 2021/03/06 17:49:34 by kmacquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME = cub3D
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Imlx -I./includes
 SRCS =	srcs/get_next_line.c srcs/get_next_line_utils.c \
-		srcs/draw.c srcs/move.c srcs/utils.c srcs/rotate.c \
-		srcs/keys.c srcs/cub3d.c srcs/raycasting.c srcs/parsing.c \
+		srcs/draw.c srcs/move.c srcs/utils.c srcs/keys.c \
+		srcs/cub3d.c srcs/raycasting.c srcs/parsing.c \
 		srcs/init.c
 OBJS = $(SRCS:.c=.o)
 ARRCS = ar -rcs

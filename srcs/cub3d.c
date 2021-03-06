@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/05 17:08:55 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/06 19:22:47 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_minimap(t_data *data)
 		x = 0;
 		y++;
 	}
-	ft_player(data, round(data->x_pplayer/64) + offset, round(data->y_pplayer/64) + offset, 0x40FFFF00);
+	ft_player(data, floor(data->x_pplayer/64) + offset, floor(data->y_pplayer/64) + offset, 0x40FFFF00);
 }
 
 int	ft_imprim(t_data *data)

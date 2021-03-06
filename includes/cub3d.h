@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/05 16:15:14 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/06 19:08:14 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct	s_data
 	t_sprite	sprite;
 }				t_data;
 
+int		is_resolution_valid(t_data *data);
 void	ft_init_texture(t_data *data);
 void	ft_minimap(t_data *data);
 int		ft_exit(t_data *data);
