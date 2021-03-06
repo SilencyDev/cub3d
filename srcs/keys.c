@@ -44,10 +44,25 @@ int	key_press(int keycode, t_data *data)
 	else if (keycode == RRIGHT)
 		data->rright = 1;
 	else if (keycode == SPACE)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->img);
-		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-		exit(0);
-	}
+		ft_exit(data);
 	return (1);
+}
+
+int	ft_exit(t_data *data)
+{
+	if (data->img)
+		mlx_destroy_image(data->mlx_ptr, data->img);
+	if (data->texture[0].img_ptr)
+		mlx_destroy_image(data->mlx_ptr, data->texture[0].img_ptr);
+	if (data->texture[1].img_ptr)
+		mlx_destroy_image(data->mlx_ptr, data->texture[1].img_ptr);
+	if (data->texture[2].img_ptr)
+		mlx_destroy_image(data->mlx_ptr, data->texture[2].img_ptr);
+	if (data->texture[3].img_ptr)
+		mlx_destroy_image(data->mlx_ptr, data->texture[3].img_ptr);
+	if (data->texture[4].img_ptr)
+		mlx_destroy_image(data->mlx_ptr, data->texture[4].img_ptr);
+	if (data->mlx_win)
+		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
+	exit(0);
 }

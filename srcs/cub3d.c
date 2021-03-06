@@ -26,26 +26,36 @@ void	ft_render(double p_wall, int x, t_data *data)
 	double	i;
 	int n;
 
-	height = HEIGHT;
+	height = data->height;
 	i = 0;
 	n = 0;
 	while (height)
 	{
-		if ((height < (HEIGHT / 2 - (p_wall / 2) + p_wall)) && (height > (HEIGHT / 2 - p_wall / 2)))
+		if ((height < (data->height / 2 - (p_wall / 2) + p_wall)) && (height > (data->height / 2 - p_wall / 2)))
 		{
 			if (data->dh >= data->dv)
 			{
 				n = cos(data->pa) > 0 ? 1 : 3;
-				my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dy % 64, (int)round((p_wall - i))* 64 / p_wall, n));
+				if (p_wall > data->height)
+				{
+					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dy % 64, (int)round((p_wall -((p_wall - data->height)/2)- i))* 64 / p_wall, n));
+				}
+				else
+					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dy % 64, (int)round((p_wall - i))* 64 / p_wall, n));
 			}
 			else
 			{
 				n = sin(data->pa) > 0 ? 0 : 2;
-				my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64 , (int)round((p_wall - i))* 64 / p_wall, n));
+				if (p_wall > data->height)
+				{
+					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64, (int)round((p_wall -((p_wall - data->height)/2)- i))* 64 / p_wall, n));
+				}
+				else
+				my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64 , (int)round((p_wall- i))* 64 / p_wall, n));
 			}
 			i++;
 		}
-		else if (!(height < (HEIGHT / 2 - (p_wall / 2) + p_wall)))
+		else if (!(height < (data->height / 2 - (p_wall / 2) + p_wall)))
 			my_mlx_pixel_put(data, x, height, 0x00FF0000);
 		else
 			my_mlx_pixel_put(data, x, height, 0x00909090);
@@ -64,7 +74,7 @@ int	ft_imprim(t_data *data)
 	// y = 0;
 	x = 0;
 	i = 0;
-	width = WIDTH;
+	width = data->width;
 	ft_move(data);
 	// while (data->map[y][x])
 	// {
@@ -104,10 +114,10 @@ int	ft_imprim(t_data *data)
 		data->dy = data->dv < data->dh ? data->vy : data->hy;
 		data->d = data->dv < data->dh ? data->dv : data->dh;
 		data->d = data->d * cos(i - data->pa);
-		p_wall = ceil((SIZE / data->d) * DPROJ);
+		p_wall = ceil((SIZE / data->d) * (data->width / 2) / tan(FOV2 * DTOR));
 		ft_render(p_wall, x, data);
 		x++;
-		data->pa += (FOV * DTOR/ WIDTH);
+		data->pa += (FOV * DTOR/ data->width);
 		data->pa = data->pa < 0 ? 2 * PI + data->pa : data->pa;
 		data->pa = data->pa > 2 * PI ? data->pa - 2 * PI : data->pa;
 	}
@@ -121,14 +131,15 @@ int	ft_imprim(t_data *data)
 void ft_init_texture(t_data *data)
 {
 	int	n;
-	char			relative_path[4][100] = 
+	char			relative_path[5][100] = 
 	{"./textures/bricks.xpm",
 	"./textures/bark.xpm",
 	"./textures/coal.xpm",
-	"./textures/stone.xpm"};
+	"./textures/stone.xpm",
+	"./textures/sprite.xpm"};
 
 	n = 0;
-	while (n < 4)
+	while (n < 5)
 	{
 		data->texture[n].img_height = 64;
 		data->texture[n].img_width = 64;
@@ -137,6 +148,7 @@ void ft_init_texture(t_data *data)
 		n++;
 	}
 }
+
 
 int	main(int argc, char **argv)
 {
@@ -173,18 +185,18 @@ int	main(int argc, char **argv)
 		}
 		ft_init_player(&data);
 		data.mlx_ptr = mlx_init();
-		data.mlx_win = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Hello world!");
+		mlx_get_screen_size(data.mlx_ptr, &data.screenx, &data.screeny);
+		data.width = (WIDTH > data.screenx) ? data.screenx : WIDTH;
+		data.height = (HEIGHT > data.screeny) ? data.screeny : HEIGHT;
+		data.mlx_win = mlx_new_window(data.mlx_ptr, data.width, data.height, "Hello world!");
 		ft_init_texture(&data);
-		data.img = mlx_new_image(data.mlx_ptr, WIDTH, HEIGHT);
+		data.img = mlx_new_image(data.mlx_ptr, data.width, data.height);
 		data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 		mlx_hook(data.mlx_win, 2, 1L<<0, key_press, &data);
 		mlx_hook(data.mlx_win, 3, 1L<<1, key_release, &data);
+		mlx_hook(data.mlx_win, 33, 1L << 17, ft_exit, &data);
 		mlx_loop_hook(data.mlx_ptr, ft_imprim, &data);
 		mlx_loop(data.mlx_ptr);
-		mlx_destroy_image(data.mlx_ptr, data.texture[0].img_ptr);
-		mlx_destroy_image(data.mlx_ptr, data.texture[1].img_ptr);
-		mlx_destroy_image(data.mlx_ptr, data.texture[2].img_ptr);
-		mlx_destroy_image(data.mlx_ptr, data.texture[3].img_ptr);
 	}
 	return (0);
 }

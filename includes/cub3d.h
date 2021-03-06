@@ -27,23 +27,23 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-// # define FORWARD 119
-// # define LEFT 97
-// # define BACKWARD 115
-// # define RIGHT 100
-// # define RLEFT 65361
-// # define RRIGHT 65363
-// # define SPACE 32
-# define FORWARD 13
-# define LEFT 0
-# define BACKWARD 1
-# define RIGHT 2
-# define RLEFT 123
-# define RRIGHT 124
-# define SPACE 49
-# define WIDTH 1080.0
+# define FORWARD 119
+# define LEFT 97
+# define BACKWARD 115
+# define RIGHT 100
+# define RLEFT 65361
+# define RRIGHT 65363
+# define SPACE 32
+// # define FORWARD 13
+// # define LEFT 0
+// # define BACKWARD 1
+// # define RIGHT 2
+// # define RLEFT 123
+// # define RRIGHT 124
+// # define SPACE 49
+# define WIDTH 1080
 # define WIDTH2 (WIDTH / 2)
-# define HEIGHT 720.0
+# define HEIGHT 720
 # define HEIGHT2 (HEIGHT / 2)
 # define FOV 60.0
 # define FOV2 (FOV / 2)
@@ -73,6 +73,8 @@ typedef struct		s_texture
 
 typedef struct	s_data
 {
+	int	screenx;
+	int	screeny;
 	void	*mlx_ptr;
 	void	*mlx_win;
 	void	*img;
@@ -84,6 +86,8 @@ typedef struct	s_data
 	int		one;
 	char	player;
 	int		nb_player;
+	double	width;
+	double	height;
 	double	y_player;
 	double	x_player;
 	double	y_pplayer;
@@ -108,9 +112,10 @@ typedef struct	s_data
 	int		right;
 	int		rleft;
 	int		rright;
-	t_texture	texture[4];
+	t_texture	texture[5];
 }				t_data;
 
+int		ft_exit(t_data *data);
 unsigned int	get_image_pixel(t_data *data, int x, int y, int n);
 void	init_max_map(t_data *data);
 void	ft_init_hv(t_data *data);
