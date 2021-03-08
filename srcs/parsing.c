@@ -6,16 +6,75 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:53:26 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/06 19:10:47 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:31:55 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int	is_resolution_valid(t_data *data)
-// {
-// 	return (0);
-// }
+void	ft_error(char *s)
+{
+	ft_putstr_fd("Error\n", 1);
+	ft_putstr_fd(s, 1);
+	ft_putstr_fd("\n", 1);
+	exit(1);
+}
+
+int	is_resolution_valid(char *s, t_data *data)
+{
+	int	i;
+	int	j;
+	char **str;
+
+	i = 0;
+	j = 0;
+	str = ft_split_str(*s, " 	\t\v\r\f");
+	while (str[i][j])
+		j++;
+	if (j > 2)
+		ft_error("Resolution parameters incorrect");
+	data->screenx = ft_atoi(str[0]);
+	data->screeny = ft_atoi(str[1]);
+	while (--j >= 0)	
+		free(str[j]);
+	free(str);
+	if (data->screenx <= 0 || data->screeny <= 0)
+		ft_error("Resolution parameters can't be negative or equal to 0");
+	return (1);
+}
+
+int	is_ceil_floor_color(char *s, t_data *data)
+{
+	int		i;
+	int		j;
+	char	**str;
+	char	*tmp;
+	char	*color;
+
+	i = 0;
+	j = 0;
+	str = ft_split_str(*s, " 	,\t\v\r\f");
+	while (str[i][j])
+		j++;
+	if (j > 4)
+		ft_error("Resolution parameters incorrect");
+	// function to change base here
+	tmp = ft_strjoin(str[1], str[2]);
+	color = ft_strjoin(tmp, str[3]);
+	free(tmp);
+	if (str[0] == 'F')
+		data->f = color;
+	else
+		data->c = color;
+	free(color);
+	while (--j >= 0)	
+		free(str[j]);
+	free(str);
+	if (data->screenx < 0 || data->screeny < 0)
+		ft_error("Color parameters can't be negative");
+	return (1);
+}
+
 
 int	is_map_valid(t_data *data)
 {

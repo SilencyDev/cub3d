@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/06 19:08:14 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:22:44 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ typedef struct	s_data
 {
 	int		screenx;
 	int		screeny;
+	int		f;
+	int		c;
+	char	*n_path;
+	char	*s_path;
+	char	*w_path;
+	char	*e_path;
+	char	*sprite_path;
 	void	*mlx_ptr;
 	void	*mlx_win;
 	void	*img;
@@ -118,7 +125,7 @@ typedef struct	s_data
 	t_sprite	sprite;
 }				t_data;
 
-int		is_resolution_valid(t_data *data);
+int		is_resolution_valid(char *s, t_data *data);
 void	ft_init_texture(t_data *data);
 void	ft_minimap(t_data *data);
 int		ft_exit(t_data *data);

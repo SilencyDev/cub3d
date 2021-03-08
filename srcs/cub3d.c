@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/06 19:22:47 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:02:19 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	main(int argc, char **argv)
 	int				fd;
 	int				y;
 	int				x;
+	int				ret;
 	char			*line;
 	t_data			data;
 
@@ -89,18 +90,34 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
-		while (get_next_line(fd, &line) > 0)
+		while (ret != 0)
 		{
-			while (*line)
+			ret = get_next_line(fd, &line) > 0;
+			if (*line == '\n')
+				;
+			else if (*line == 'R' && *(line + 1) == ' ')
+				is_resolution_valid(line + 2, &data);
+			else if (((*line == 'N' && *(line + 1) == '0') || (*line == 'S' && *(line + 1) == '0') ||
+				(*line == 'W' && *(line + 1) == 'E') || (*line == 'E' && *(line + 1) == 'A')) &&
+				(*(line + 2) == ' '))
+				ft_texture_path();
+			else if (*line == 'S' && *(line + 1) == ' ')
+				ft_sprite_path();
+			else if ((*line == 'F' && *(line + 1) == ' ') || (*line == 'C' && *(line + 1) == ' '))
+				is_ceil_floor_color();
+			else
 			{
-				data.map[y][x] = *line++;
-				printf("%c", data.map[y][x]);
-				x++;
+				while (*line)
+				{
+					data.map[y][x] = *line++;
+					printf("%c", data.map[y][x]);
+					x++;
+				}
+				free(line - x);
+				printf("%c",'\n');
+				x = 0;
+				y++;
 			}
-			free(line - x);
-			printf("%c",'\n');
-			x = 0;
-			y++;
 		}
 		data.map[y][x] = '\0';
 		close(fd);
