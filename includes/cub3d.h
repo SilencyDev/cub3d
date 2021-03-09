@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 15:10:03 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:29:39 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct	s_color
 
 typedef struct	s_data
 {
+	int		save;
 	int		screenx;
 	int		screeny;
 	int		f;
@@ -135,6 +136,7 @@ typedef struct	s_data
 	t_sprite	sprite;
 }				t_data;
 
+int		is_save(char *s);
 void	ft_error(char *s);
 int		recup_path(char *s, t_data *data);
 int		is_empty_line(char *str, char *charset);

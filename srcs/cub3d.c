@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 14:59:14 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 17:26:47 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char **argv)
 	t_data			data;
 
 	y = 0;
-	if (argc == 2)
+	if (argc == 2 /*|| (argc == 3 && is_save(argv[2]))*/)
 	{
 		fd = open(argv[1], O_RDONLY);
 		while (ret != 0)
@@ -114,13 +114,13 @@ int	main(int argc, char **argv)
 					printf("%c", data.map[y][x]);
 					x++;
 				}
+				data.map[y][x] = '\0';
 				free(line - x);
 				printf("%c",'\n');
 				x = 0;
 				y++;
 			}
 		}
-		data.map[y][x] = '\0';
 		close(fd);
 		ft_init(&data);
 		if (!is_map_valid(&data))
@@ -133,7 +133,7 @@ int	main(int argc, char **argv)
 		// mlx_get_screen_size(data.mlx_ptr, &data.screenx, &data.screeny);
 		data.width = /*(WIDTH > data.screenx) ? data.screenx :*/ WIDTH;
 		data.height = /*(HEIGHT > data.screeny) ? data.screeny :*/ HEIGHT;
-		data.mlx_win = mlx_new_window(data.mlx_ptr, data.width, data.height, "Hello world!");
+		data.mlx_win = mlx_new_window(data.mlx_ptr, data.width, data.height, "Cub3D!");
 		ft_init_texture(&data);
 		data.img = mlx_new_image(data.mlx_ptr, data.width, data.height);
 		data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);

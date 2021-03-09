@@ -6,19 +6,11 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:53:26 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 14:50:18 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:33:33 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_error(char *s)
-{
-	ft_putstr_fd("Error\n", 1);
-	ft_putstr_fd(s, 1);
-	ft_putstr_fd("\n", 1);
-	exit(1);
-}
 
 int	is_resolution_valid(char *s, t_data *data)
 {
