@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/08 21:02:19 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:41:07 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 	int				fd;
 	int				y;
 	int				x;
-	int				ret;
+	int				ret = 1;
 	char			*line;
 	t_data			data;
 
@@ -93,18 +93,18 @@ int	main(int argc, char **argv)
 		while (ret != 0)
 		{
 			ret = get_next_line(fd, &line) > 0;
-			if (*line == '\n')
+			if (is_empty_line(line, " 	\t\v\r\f\n"))
 				;
 			else if (*line == 'R' && *(line + 1) == ' ')
 				is_resolution_valid(line + 2, &data);
-			else if (((*line == 'N' && *(line + 1) == '0') || (*line == 'S' && *(line + 1) == '0') ||
+			else if ((*line == 'F' && *(line + 1) == ' ') || (*line == 'C' && *(line + 1) == ' '))
+				is_ceil_floor_color(line, &data);
+			else if (((*line == 'N' && *(line + 1) == 'O') || (*line == 'S' && *(line + 1) == 'O') ||
 				(*line == 'W' && *(line + 1) == 'E') || (*line == 'E' && *(line + 1) == 'A')) &&
 				(*(line + 2) == ' '))
-				ft_texture_path();
+				recup_path(line, &data);
 			else if (*line == 'S' && *(line + 1) == ' ')
-				ft_sprite_path();
-			else if ((*line == 'F' && *(line + 1) == ' ') || (*line == 'C' && *(line + 1) == ' '))
-				is_ceil_floor_color();
+				recup_path(line, &data);
 			else
 			{
 				while (*line)
@@ -129,9 +129,9 @@ int	main(int argc, char **argv)
 		}
 		ft_init_player(&data);
 		data.mlx_ptr = mlx_init();
-		mlx_get_screen_size(data.mlx_ptr, &data.screenx, &data.screeny);
-		data.width = (WIDTH > data.screenx) ? data.screenx : WIDTH;
-		data.height = (HEIGHT > data.screeny) ? data.screeny : HEIGHT;
+		// mlx_get_screen_size(data.mlx_ptr, &data.screenx, &data.screeny);
+		data.width = /*(WIDTH > data.screenx) ? data.screenx :*/ WIDTH;
+		data.height = /*(HEIGHT > data.screeny) ? data.screeny :*/ HEIGHT;
 		data.mlx_win = mlx_new_window(data.mlx_ptr, data.width, data.height, "Hello world!");
 		ft_init_texture(&data);
 		data.img = mlx_new_image(data.mlx_ptr, data.width, data.height);

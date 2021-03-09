@@ -1,3 +1,15 @@
+R 1080 720
+
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+EA ./textures/east.xpm
+WE ./textures/west.xpm
+
+S ./textures/sprite.xpm
+
+C 112,112,112
+F 153,0,0
+
     111111111111111111
  11100011000000000001
 10001100000000000111
