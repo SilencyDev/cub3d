@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 14:41:07 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:59:14 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,16 @@ int	main(int argc, char **argv)
 			ret = get_next_line(fd, &line) > 0;
 			if (is_empty_line(line, " 	\t\v\r\f\n"))
 				;
-			else if (*line == 'R' && *(line + 1) == ' ')
+			else if (*line == 'R' && is_charset(*(line + 1), " 	\t\v\r\f\n"))
 				is_resolution_valid(line + 2, &data);
-			else if ((*line == 'F' && *(line + 1) == ' ') || (*line == 'C' && *(line + 1) == ' '))
+			else if ((*line == 'F' && is_charset(*(line + 1), " 	\t\v\r\f\n")) ||
+				(*line == 'C' && is_charset(*(line + 1), " 	\t\v\r\f\n")))
 				is_ceil_floor_color(line, &data);
 			else if (((*line == 'N' && *(line + 1) == 'O') || (*line == 'S' && *(line + 1) == 'O') ||
 				(*line == 'W' && *(line + 1) == 'E') || (*line == 'E' && *(line + 1) == 'A')) &&
-				(*(line + 2) == ' '))
+				is_charset(*(line + 2), " 	\t\v\r\f\n"))
 				recup_path(line, &data);
-			else if (*line == 'S' && *(line + 1) == ' ')
+			else if (*line == 'S' && is_charset(*(line + 1), " 	\t\v\r\f\n"))
 				recup_path(line, &data);
 			else
 			{

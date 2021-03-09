@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 14:35:56 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:10:03 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct	s_data
 	t_sprite	sprite;
 }				t_data;
 
+void	ft_error(char *s);
 int		recup_path(char *s, t_data *data);
 int		is_empty_line(char *str, char *charset);
 char	**ft_split_str(char *s, char *charset);
