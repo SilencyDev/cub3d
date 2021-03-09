@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 16:29:39 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 20:54:28 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-// # define FORWARD 119
-// # define LEFT 97
-// # define BACKWARD 115
-// # define RIGHT 100
-// # define RLEFT 65361
-// # define RRIGHT 65363
-// # define SPACE 32
-# define FORWARD 13
-# define LEFT 0
-# define BACKWARD 1
-# define RIGHT 2
-# define RLEFT 123
-# define RRIGHT 124
-# define SPACE 49
+# define FORWARD 119
+# define LEFT 97
+# define BACKWARD 115
+# define RIGHT 100
+# define RLEFT 65361
+# define RRIGHT 65363
+# define SPACE 32
+// # define FORWARD 13
+// # define LEFT 0
+// # define BACKWARD 1
+// # define RIGHT 2
+// # define RLEFT 123
+// # define RRIGHT 124
+// # define SPACE 49
 # define WIDTH 1080
 # define HEIGHT 720
 # define FOV 60.0
@@ -136,13 +136,16 @@ typedef struct	s_data
 	t_sprite	sprite;
 }				t_data;
 
+int		ft_wall_size(t_data *data, double iangle);
+void	ft_mlx(t_data *data);
+void	ft_parsing(t_data *data, int fd);
+int		set_map(char *line, t_data *data, int y);
 int		is_save(char *s);
 void	ft_error(char *s);
 int		recup_path(char *s, t_data *data);
 int		is_empty_line(char *str, char *charset);
 char	**ft_split_str(char *s, char *charset);
 int		ft_atoi(char *str);
-int		is_str_charset(char c, char *charset);
 int		ft_countword(char *str, char *charset);
 void	ft_strcpy(char *start, char *str, char *dest);
 void	ft_putchar_fd(char c, int fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:53:26 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 16:33:33 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 21:00:17 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	is_resolution_valid(char *s, t_data *data)
 {
 	int	i;
-	int	j;
 	char **str;
 
 	i = 0;
-	j = 0;
 	str = ft_split_str(s, " 	\t\v\r\f\n");
 	while (str[i])
 			i++;
@@ -38,11 +36,9 @@ int	is_resolution_valid(char *s, t_data *data)
 int	is_ceil_floor_color(char *s, t_data *data)
 {
 	int		i;
-	int		j;
 	char	**str;
 
 	i = 0;
-	j = 0;
 	str = ft_split_str(s, " 	,\t\v\r\f\n");
 	while (str[i])
 		i++;
@@ -64,11 +60,9 @@ int	is_ceil_floor_color(char *s, t_data *data)
 int	recup_path(char *s, t_data *data)
 {
 	int	i;
-	int	j;
 	char **str;
 
 	i = 0;
-	j = 0;
 	str = ft_split_str(s, " 	\t\v\r\f\n");
 	while (str[i])
 			i++;
@@ -100,8 +94,6 @@ int	is_map_valid(t_data *data)
 	data->nb_player = 0;
 	while (data->map[y][x])
 	{
-		while (data->map[y][x] == ' ')
-			x++;
 		while (data->map[y][x])
 		{
 			if (!is_charset(data->map[y][x], "012 NSEW") || (data->one == 0 && !is_charset(data->map[y][x], "1 ")))
@@ -149,4 +141,34 @@ int	is_map_valid(t_data *data)
 		x++;
 	}
 	return (1);
+}
+
+void	ft_parsing(t_data *data, int fd)
+{
+	int		ret;
+	int		y;
+	char	*line;
+
+	ret = 1;
+	y = 0;
+	while (ret != 0)
+	{
+		ret = get_next_line(fd, &line) > 0;
+		if (is_empty_line(line, " 	\t\v\r\f\n"))
+			;
+		else if (*line == 'R' && is_charset(*(line + 1), " 	\t\v\r\f\n"))
+			is_resolution_valid(line + 2, data);
+		else if ((*line == 'F' && is_charset(*(line + 1), " 	\t\v\r\f\n")) ||
+			(*line == 'C' && is_charset(*(line + 1), " 	\t\v\r\f\n")))
+			is_ceil_floor_color(line, data);
+		else if (((*line == 'N' && *(line + 1) == 'O') || (*line == 'S' && *(line + 1) == 'O') ||
+			(*line == 'W' && *(line + 1) == 'E') || (*line == 'E' && *(line + 1) == 'A')) &&
+			is_charset(*(line + 2), " 	\t\v\r\f\n"))
+			recup_path(line, data);
+		else if (*line == 'S' && is_charset(*(line + 1), " 	\t\v\r\f\n"))
+			recup_path(line, data);
+		else
+			y = set_map(line, data, y);
+	}
+	data->map[y][0] = '\0';
 }

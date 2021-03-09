@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:39:39 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/06 17:34:59 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 20:56:06 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,15 @@ char	is_charset(char c, char *charset)
 	return (0);
 }
 
-void	ft_print_tab(t_data *data)
+int			is_empty_line(char *str, char *charset)
 {
-	int	y;
-	int x;
-
-	x = 0;
-	y = 0;
-	while (data->map[y][x])
+	while (*str)
 	{
-		while (data->map[y][x])
-			printf("%c", data->map[y][x++]);
-		printf("\n");
-		x = 0;
-		y++;
+		if (!is_charset(*str, charset) && *str)
+			return (0);
+		str++;
 	}
+	return (1);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -51,4 +45,28 @@ unsigned int	get_image_pixel(t_data *data, int x, int y, int n)
 
 	dst = data->texture[n].addr_ptr + (y * data->texture[n].line_length_t + x * (data->texture[n].bits_per_pixel_t / 8));
 	return (*(unsigned int*)dst);
+}
+
+int					ft_atoi(char *str)
+{
+	unsigned int	i;
+	int				posneg;
+	int				result;
+
+	i = 0;
+	result = 0;
+	posneg = 1;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i++] == '-')
+			posneg = -1;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result * posneg);
 }

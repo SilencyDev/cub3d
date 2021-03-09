@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:51:53 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 16:18:33 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/09 20:36:20 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		ft_render(double p_wall, int x, t_data *data)
 	double	i;
 	int 	n;
 
-	i = 0;
+	i = 1;
 	n = 0;
 	offset = (p_wall - data->height)/2;
 	height = data->height;
@@ -27,7 +27,7 @@ void		ft_render(double p_wall, int x, t_data *data)
 	{
 		if ((height < data->height / 2 - (p_wall / 2) + p_wall) && (height > data->height / 2 - p_wall / 2))
 		{
-			if (data->dh >= data->dv)
+			if (data->dh > data->dv)
 			{
 				n = cos(data->pa) > 0 ? 1 : 3;
 				if (p_wall > data->height)
@@ -41,7 +41,7 @@ void		ft_render(double p_wall, int x, t_data *data)
 				if (p_wall > data->height)
 					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64, (int)round((p_wall - offset - i))* 64 / p_wall, n));
 				else
-					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64 , (int)round((p_wall- i))* 64 / p_wall, n));
+					my_mlx_pixel_put(data, x, height, get_image_pixel(data, (int)data->dx % 64 , (int)round((p_wall - i))* 64 / p_wall, n));
 			}
 			i++;
 		}
@@ -125,4 +125,32 @@ void	check_vertical(t_data *data)
 			}
 		}
 	}
+}
+
+void	ft_mlx(t_data *data)
+{
+		data->mlx_ptr = mlx_init();
+		// mlx_get_screen_size(data.mlx_ptr, &data.screenx, &data.screeny);
+		data->width = /*(WIDTH > data.screenx) ? data.screenx :*/ WIDTH;
+		data->height = /*(HEIGHT > data.screeny) ? data.screeny :*/ HEIGHT;
+		data->mlx_win = mlx_new_window(data->mlx_ptr, data->width, data->height, "Cub3D!");
+		ft_init_texture(data);
+		data->img = mlx_new_image(data->mlx_ptr, data->width, data->height);
+		data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+		mlx_hook(data->mlx_win, 2, 1L<<0, key_press, data);
+		mlx_hook(data->mlx_win, 3, 1L<<1, key_release, data);
+		mlx_hook(data->mlx_win, 33, 1L << 17, ft_exit, data);
+		mlx_loop_hook(data->mlx_ptr, ft_imprim, data);
+		mlx_loop(data->mlx_ptr);
+}
+
+int		ft_wall_size(t_data *data, double iangle)
+{
+		data->dv = fabs((data->x_pplayer - data->vx)/cos(data->pa));
+		data->dh = fabs((data->x_pplayer - data->hx)/cos(data->pa));
+		data->dx = data->dv < data->dh ? data->vx : data->hx;
+		data->dy = data->dv < data->dh ? data->vy : data->hy;
+		data->d = data->dv < data->dh ? data->dv : data->dh;
+		data->d = data->d * cos(iangle - data->pa);
+		return (ceil((SIZE / data->d) * (data->width / 2) / tan(FOV2 * DTOR)));
 }
