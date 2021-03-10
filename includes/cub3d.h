@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 20:54:28 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:45:07 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-# define FORWARD 119
-# define LEFT 97
-# define BACKWARD 115
-# define RIGHT 100
-# define RLEFT 65361
-# define RRIGHT 65363
-# define SPACE 32
-// # define FORWARD 13
-// # define LEFT 0
-// # define BACKWARD 1
-// # define RIGHT 2
-// # define RLEFT 123
-// # define RRIGHT 124
-// # define SPACE 49
+// # define FORWARD 119
+// # define LEFT 97
+// # define BACKWARD 115
+// # define RIGHT 100
+// # define RLEFT 65361
+// # define RRIGHT 65363
+// # define SPACE 32
+# define FORWARD 13
+# define LEFT 0
+# define BACKWARD 1
+# define RIGHT 2
+# define RLEFT 123
+# define RRIGHT 124
+# define SPACE 49
 # define WIDTH 1080
 # define HEIGHT 720
 # define FOV 60.0
@@ -136,6 +136,8 @@ typedef struct	s_data
 	t_sprite	sprite;
 }				t_data;
 
+void	ft_save(t_data *data);
+void	ft_header(t_data *data, int fd);
 int		ft_wall_size(t_data *data, double iangle);
 void	ft_mlx(t_data *data);
 void	ft_parsing(t_data *data, int fd);

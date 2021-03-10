@@ -1,33 +1,34 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    linux.Makefile                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/23 11:51:41 by kmacquet          #+#    #+#              #
-#    Updated: 2021/03/09 16:33:35 by kmacquet         ###   ########.fr        #
+#    Updated: 2021/03/10 09:47:39 by kmacquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Imlx -I./includes
+FLAGS = -Wall -Wextra -Werror -g -Ilibft -Iminilibx-linux -I./includes
 SRCS =	srcs/get_next_line.c srcs/get_next_line_utils.c \
 		srcs/draw.c srcs/move.c srcs/utils.c srcs/keys.c \
 		srcs/cub3d.c srcs/raycasting.c srcs/parsing.c \
-		srcs/init.c srcs/libft.c srcs/error.c
+		srcs/init.c srcs/libft.c srcs/error.c srcs/save.c
 OBJS = $(SRCS:.c=.o)
+ARRCS = ar -rcs
 RM = rm -f
 
 all: $(NAME)
 
 .c.o:
-	$(CC) $(CFLAGS) -o $(<:.c=.o) -c $<
+	$(CC) $(FLAGS) -o $(<:.c=.o) -c $<
 
 $(NAME):$(OBJS)
-	$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) -g -fsanitize=address
+	$(CC) $(OBJS) -L minilibx-linux -lmlx -lm -lbsd -lX11 -lXext -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)

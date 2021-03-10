@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 20:58:02 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/10 09:24:36 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 
 	if (argc == 2 || (argc == 3 && is_save(argv[2])))
 	{
+		data.save = argc == 3 ? 1 : 0;
 		fd = open(argv[1], O_RDONLY);
 		ft_parsing(&data, fd);
 		close(fd);

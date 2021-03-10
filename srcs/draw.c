@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:42:28 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 20:57:42 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:12:23 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_imprim(t_data *data)
 {
-	int	x;
+	int		x;
 	int		width;
 	double	iangle;
 	int		p_wall;
@@ -37,6 +37,8 @@ int	ft_imprim(t_data *data)
 	data->pa = iangle;
 	ft_minimap(data);
 	// printf("x:[%f] y:[%f] vx:[%.2f] vy:[%.2f] hx:[%.2f] hy:[%.2f] dh:[%.2f] dv:[%.2f] a:[%f]\n", data->x_pplayer, data->y_pplayer, data->vx,data->vy ,data->hx ,data->hy ,data->dh,data->dv ,data->pa);
+	if (data->save)
+		ft_save(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img, 0, 0);
 	return (1);
 }
@@ -58,7 +60,7 @@ void	ft_square(t_data *data, int x, int y, int color)
 		{
 			my_mlx_pixel_put(data, x_max + j, y_max + i, color);
 			if (i < 1 || i > 7 || j < 1 || j > 7)
-				my_mlx_pixel_put(data, x_max + j, y_max + i, 0x10000000);
+				my_mlx_pixel_put(data, x_max + j, y_max + i, 0xFF000000);
 			j++;
 		}
 		j = 0;
@@ -105,9 +107,9 @@ void	ft_minimap(t_data *data)
 		while (data->map[y][x])
 		{
 			if (is_charset(data->map[y][x], "02SEWN"))
-				ft_square(data, x + offset, y + offset, 0x40FF0000);
+				ft_square(data, x + offset, y + offset, 0xF0FF0000);
 			if (data->map[y][x] == '1')
-				ft_square(data, x + offset, y + offset, 0x40FFFFFF);
+				ft_square(data, x + offset, y + offset, 0x00FFFFFF);
 			x++;
 		}
 		x = 0;
