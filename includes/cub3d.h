@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/10 16:45:07 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:33:12 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,15 @@ typedef struct	s_sprite
 {
 	double	sx;
 	double	sy;
+	double	hx;
+	double	hy;
+	double	vx;
+	double	vy;
+	double	dv;
+	double	dh;
+	double	d;
+	double	dx;
+	double	dy;
 }				t_sprite;
 
 typedef struct	s_color
@@ -136,6 +145,7 @@ typedef struct	s_data
 	t_sprite	sprite;
 }				t_data;
 
+int		ft_sprite_size(t_data *data, double iangle);
 void	ft_save(t_data *data);
 void	ft_header(t_data *data, int fd);
 int		ft_wall_size(t_data *data, double iangle);
@@ -166,7 +176,7 @@ void	check_horizontal(t_data *data);
 void	ft_player(t_data *data, int x, int y, int color);
 int		ft_imprim(t_data *data);
 int		is_map_valid(t_data *data);
-void	ft_render(double p_wall, int x, t_data *data);
+void	ft_render(double p_wall, int x, t_data *data, double p_sprite);
 int		key_release(int keycode, t_data *data);
 int		key_press(int keycode, t_data *data);
 void	ft_rotate_r(t_data *data);

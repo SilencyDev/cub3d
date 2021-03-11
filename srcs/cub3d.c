@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/10 09:24:36 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/11 11:12:35 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
 	{
 		data.save = argc == 3 ? 1 : 0;
 		fd = open(argv[1], O_RDONLY);
+		ft_init_hv(&data);
 		ft_parsing(&data, fd);
 		close(fd);
 		ft_init(&data);

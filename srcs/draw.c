@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:42:28 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/10 16:12:23 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/11 14:01:10 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_imprim(t_data *data)
 	int		width;
 	double	iangle;
 	int		p_wall;
+	int		p_sprite;
 
 	x = 0;
 	width = data->width;
@@ -30,8 +31,13 @@ int	ft_imprim(t_data *data)
 		check_horizontal(data);
 		check_vertical(data);
 		p_wall = ft_wall_size(data, iangle);
-		ft_render(p_wall, x++, data);
+		p_sprite = ft_sprite_size(data, iangle);
+		ft_render(p_wall, x++, data, p_sprite);
 		data->pa += (FOV * DTOR/ data->width);
+		data->sprite.hx = 0;
+		data->sprite.vx = 0;
+		data->sprite.hy = 0;
+		data->sprite.vy = 0;
 	}
 	x = 0;
 	data->pa = iangle;
