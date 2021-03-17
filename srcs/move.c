@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:44:38 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 15:13:02 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:51:30 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void		ft_move(t_data *data)
 	pdy = sin(data->pa) * SPEED;
 	if (data->forward)
 		ft_move_f(data, pdx, pdy);
-	else if (data->backward)
+	if (data->backward)
 		ft_move_b(data, pdx, pdy);
-	else if (data->left)
+	if (data->left)
 		ft_move_l(data, pdx, pdy);
-	else if (data->right)
+	if (data->right)
 		ft_move_r(data, pdx, pdy);
-	else if (data->rright)
+	if (data->rright)
 		ft_rotate_r(data);
-	else if (data->rleft)
+	if (data->rleft)
 		ft_rotate_l(data);
 }
 
@@ -50,7 +50,6 @@ void		ft_move_f(t_data *data, double pdx, double pdy)
 			data->y_pplayer -= pdy;
 		}
 	}
-	data->forward = 0;
 }
 
 void		ft_move_b(t_data *data, double pdx, double pdy)
@@ -70,7 +69,6 @@ void		ft_move_b(t_data *data, double pdx, double pdy)
 			data->y_pplayer += pdy;
 		}
 	}
-	data->backward = 0;
 }
 
 void		ft_move_l(t_data *data, double pdx, double pdy)
@@ -90,7 +88,6 @@ void		ft_move_l(t_data *data, double pdx, double pdy)
 			data->y_pplayer += pdx;
 		}
 	}
-	data->left = 0;
 }
 
 void		ft_move_r(t_data *data, double pdx, double pdy)
@@ -110,5 +107,4 @@ void		ft_move_r(t_data *data, double pdx, double pdy)
 			data->y_pplayer -= pdx;
 		}
 	}
-	data->right = 0;
 }

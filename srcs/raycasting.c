@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:51:53 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 14:56:34 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:46:08 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void	ft_mlx(t_data *data)
 	data->addr = mlx_get_data_addr(data->img,
 	&data->bits_per_pixel, &data->line_length, &data->endian);
 	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx_win, 17, 0, ft_exit, data);
 	mlx_loop_hook(data->mlx_ptr, ft_imprim, data);
 	mlx_loop(data->mlx_ptr);

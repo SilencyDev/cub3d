@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 14:23:05 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:50:03 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define HEIGHT 720
 # define FOV 60.0
 # define FOV2 (FOV / 2)
-# define SPEED 10.0
+# define SPEED 5.0
 # define INC (FOV * 1.0 / WIDTH)
 # define PI M_PI
 # define N (2.0 * PI)
