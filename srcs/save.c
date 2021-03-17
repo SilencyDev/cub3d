@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 09:42:05 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/10 17:28:26 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 13:26:42 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ void	ft_save(t_data *data)
 void	ft_header(t_data *data, int fd)
 {
 	int	tmp;
-	int i;
-	int	width = data->width;
-	int	height = data->height;
+	int	i;
+	int	width;
+	int	height;
 
 	i = 6;
+	width = data->width;
+	height = data->height;
 	write(fd, "BM", 2);
 	tmp = 14 + 40 + (4 * width * height);
 	write(fd, &tmp, 4);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 12:42:03 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 20:56:01 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 13:20:14 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			ft_countword(char *str, char *charset)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (*str)
@@ -33,7 +33,7 @@ int			ft_countword(char *str, char *charset)
 
 void		ft_strcpy(char *start, char *str, char *dest)
 {
-	int		j;
+	int	j;
 
 	j = 0;
 	while (start < str)
@@ -70,12 +70,12 @@ char		**ft_split_str(char *s, char *charset)
 	return (dest);
 }
 
-void	ft_putchar_fd(char c, int fd)
+void		ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void		ft_putstr_fd(char *s, int fd)
 {
 	while (s && *s)
 		ft_putchar_fd(*s++, fd);

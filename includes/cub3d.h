@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/11 10:33:12 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:23:05 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# include <mlx.h>
+# include "mlx.h"
 # include <math.h>
 # include <limits.h>
 # include <float.h>
@@ -110,7 +110,7 @@ typedef struct	s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	char	map[255][255];
+	char	**map;
 	int		one;
 	char	player;
 	int		nb_player;
@@ -145,12 +145,15 @@ typedef struct	s_data
 	t_sprite	sprite;
 }				t_data;
 
-int		ft_sprite_size(t_data *data, double iangle);
+int		is_valid_to_left(t_data *data, int y, int x);
+int		is_valid_to_right(t_data *data, int y, int x);
+void	ft_parsing_setting(t_data *data, int fd);
+int		count_max_map(char *line, t_data *data, int y);
 void	ft_save(t_data *data);
 void	ft_header(t_data *data, int fd);
 int		ft_wall_size(t_data *data, double iangle);
 void	ft_mlx(t_data *data);
-void	ft_parsing(t_data *data, int fd);
+void	ft_parsing_map(t_data *data, int fd);
 int		set_map(char *line, t_data *data, int y);
 int		is_save(char *s);
 void	ft_error(char *s);
@@ -169,14 +172,13 @@ void	ft_minimap(t_data *data);
 int		ft_exit(t_data *data);
 unsigned int	get_image_pixel(t_data *data, int x, int y, int n);
 void	init_max_map(t_data *data);
-void	ft_init_hv(t_data *data);
 void	ft_init_player(t_data *data);
 void	check_vertical(t_data *data);
 void	check_horizontal(t_data *data);
 void	ft_player(t_data *data, int x, int y, int color);
 int		ft_imprim(t_data *data);
 int		is_map_valid(t_data *data);
-void	ft_render(double p_wall, int x, t_data *data, double p_sprite);
+void	ft_render(double p_wall, int x, t_data *data);
 int		key_release(int keycode, t_data *data);
 int		key_press(int keycode, t_data *data);
 void	ft_rotate_r(t_data *data);

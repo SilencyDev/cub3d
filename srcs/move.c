@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:44:38 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/06 19:45:41 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:13:02 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_move(t_data *data)
+void		ft_move(t_data *data)
 {
-	double pdx;
-	double pdy;
+	double	pdx;
+	double	pdy;
 
 	pdx = cos(data->pa) * SPEED;
 	pdy = sin(data->pa) * SPEED;
@@ -33,14 +33,18 @@ void	ft_move(t_data *data)
 		ft_rotate_l(data);
 }
 
-void	ft_move_f(t_data *data, double pdx, double pdy)
+void		ft_move_f(t_data *data, double pdx, double pdy)
 {
-	if (data->mxmap > (int)floor((data->x_pplayer + pdx) / SIZE) && (int)floor((data->x_pplayer + pdx) / SIZE) > 0 &&
-		data->mymap > (int)floor((data->y_pplayer - pdy) / SIZE) && (int)floor((data->y_pplayer - pdy) / SIZE) > 0)
+	if (data->mxmap > (int)floor((data->x_pplayer + pdx) / SIZE)
+		&& (int)floor((data->x_pplayer + pdx) / SIZE) > 0
+		&& data->mymap > (int)floor((data->y_pplayer - pdy) / SIZE)
+		&& (int)floor((data->y_pplayer - pdy) / SIZE) > 0)
 	{
-		if (data->mymap > (int)floor((data->y_pplayer - pdy) / SIZE) &&
-			data->map[(int)floor((data->y_pplayer - pdy) / SIZE)][(int)floor((data->x_pplayer + pdx) / SIZE)] &&
-			data->map[(int)floor((data->y_pplayer - pdy) / SIZE)][(int)floor((data->x_pplayer + pdx) / SIZE)] != '1')
+		if (data->mymap > (int)floor((data->y_pplayer - pdy) / SIZE)
+			&& data->map[(int)floor((data->y_pplayer - pdy) / SIZE)]
+			[(int)floor((data->x_pplayer + pdx) / SIZE)]
+			&& data->map[(int)floor((data->y_pplayer - pdy) / SIZE)]
+			[(int)floor((data->x_pplayer + pdx) / SIZE)] != '1')
 		{
 			data->x_pplayer += pdx;
 			data->y_pplayer -= pdy;
@@ -49,30 +53,38 @@ void	ft_move_f(t_data *data, double pdx, double pdy)
 	data->forward = 0;
 }
 
-void	ft_move_b(t_data *data, double pdx, double pdy)
+void		ft_move_b(t_data *data, double pdx, double pdy)
 {
-	if (data->mxmap > (int)floor((data->x_pplayer - pdx) / SIZE) && (int)floor((data->x_pplayer - pdx) / SIZE) > 0 &&
-		data->mymap > (int)floor((data->y_pplayer + pdy) / SIZE) && (int)floor((data->y_pplayer + pdy) / SIZE) > 0)
+	if (data->mxmap > (int)floor((data->x_pplayer - pdx) / SIZE)
+		&& (int)floor((data->x_pplayer - pdx) / SIZE) > 0
+		&& data->mymap > (int)floor((data->y_pplayer + pdy) / SIZE)
+		&& (int)floor((data->y_pplayer + pdy) / SIZE) > 0)
 	{
 		if (data->mymap > (int)floor((data->y_pplayer + pdy) / SIZE) &&
-			data->map[(int)floor((data->y_pplayer + pdy) / SIZE)][(int)floor((data->x_pplayer - pdx) / SIZE)] &&
-			data->map[(int)floor((data->y_pplayer + pdy) / SIZE)][(int)floor((data->x_pplayer - pdx) / SIZE)] != '1')
+			data->map[(int)floor((data->y_pplayer + pdy) / SIZE)]
+			[(int)floor((data->x_pplayer - pdx) / SIZE)] &&
+			data->map[(int)floor((data->y_pplayer + pdy) / SIZE)]
+			[(int)floor((data->x_pplayer - pdx) / SIZE)] != '1')
 		{
-		data->x_pplayer -= pdx;
-		data->y_pplayer += pdy;
+			data->x_pplayer -= pdx;
+			data->y_pplayer += pdy;
 		}
 	}
 	data->backward = 0;
 }
 
-void	ft_move_l(t_data *data, double pdx, double pdy)
+void		ft_move_l(t_data *data, double pdx, double pdy)
 {
-	if (data->mxmap > (int)floor((data->x_pplayer + pdy) / SIZE) && (int)floor((data->x_pplayer + pdy) / SIZE) > 0 &&
-		data->mymap > (int)floor((data->y_pplayer + pdx) / SIZE) && (int)floor((data->y_pplayer + pdx) / SIZE) > 0)
+	if (data->mxmap > (int)floor((data->x_pplayer + pdy) / SIZE)
+		&& (int)floor((data->x_pplayer + pdy) / SIZE) > 0
+		&& data->mymap > (int)floor((data->y_pplayer + pdx) / SIZE)
+		&& (int)floor((data->y_pplayer + pdx) / SIZE) > 0)
 	{
 		if (data->mymap > (int)floor((data->y_pplayer + pdx) / SIZE) &&
-			data->map[(int)floor((data->y_pplayer + pdx) / SIZE)][(int)floor((data->x_pplayer + pdy) / SIZE)] &&
-			data->map[(int)floor((data->y_pplayer + pdx) / SIZE)][(int)floor((data->x_pplayer + pdy) / SIZE)] != '1')
+			data->map[(int)floor((data->y_pplayer + pdx) / SIZE)]
+			[(int)floor((data->x_pplayer + pdy) / SIZE)] &&
+			data->map[(int)floor((data->y_pplayer + pdx) / SIZE)]
+			[(int)floor((data->x_pplayer + pdy) / SIZE)] != '1')
 		{
 			data->x_pplayer += pdy;
 			data->y_pplayer += pdx;
@@ -81,14 +93,18 @@ void	ft_move_l(t_data *data, double pdx, double pdy)
 	data->left = 0;
 }
 
-void	ft_move_r(t_data *data, double pdx, double pdy)
+void		ft_move_r(t_data *data, double pdx, double pdy)
 {
-	if (data->mxmap > (int)floor((data->x_pplayer - pdy) / SIZE) && (int)floor((data->x_pplayer - pdy) / SIZE) > 0 &&
-		data->mymap > (int)floor((data->y_pplayer - pdx) / SIZE) && (int)floor((data->y_pplayer - pdx) / SIZE) > 0)
+	if (data->mxmap > (int)floor((data->x_pplayer - pdy) / SIZE)
+		&& (int)floor((data->x_pplayer - pdy) / SIZE) > 0
+		&& data->mymap > (int)floor((data->y_pplayer - pdx) / SIZE)
+		&& (int)floor((data->y_pplayer - pdx) / SIZE) > 0)
 	{
-		if (data->mymap > (int)floor((data->y_pplayer - pdx) / SIZE) &&
-			data->map[(int)floor((data->y_pplayer - pdx) / SIZE)][(int)floor((data->x_pplayer - pdy) / SIZE)] &&
-			data->map[(int)floor((data->y_pplayer - pdx) / SIZE)][(int)floor((data->x_pplayer - pdy) / SIZE)] != '1')
+		if (data->mymap > (int)floor((data->y_pplayer - pdx) / SIZE)
+			&& data->map[(int)floor((data->y_pplayer - pdx) / SIZE)]
+			[(int)floor((data->x_pplayer - pdy) / SIZE)]
+			&& data->map[(int)floor((data->y_pplayer - pdx) / SIZE)]
+			[(int)floor((data->x_pplayer - pdy) / SIZE)] != '1')
 		{
 			data->x_pplayer -= pdy;
 			data->y_pplayer -= pdx;

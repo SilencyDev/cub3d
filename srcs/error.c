@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:32:37 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/09 20:06:04 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 13:03:51 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int		is_save(char *s)
 	i = 0;
 	while (s[i])
 		i++;
-	if (i == 6 && s[i - 1] == 'e' && s[i - 2] == 'v' && s[i - 3] == 'a' && s[i - 4] == 's' 
+	if (i == 6 && s[i - 1] == 'e' && s[i - 2] == 'v'
+		&& s[i - 3] == 'a' && s[i - 4] == 's'
 		&& s[i - 5] == '-' && s[i - 6] == '-')
 		return (1);
 	ft_error("The 2nd argument isn't --save");
