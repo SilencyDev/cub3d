@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:44:38 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 15:51:30 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:52:27 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		ft_move_b(t_data *data, double pdx, double pdy)
 	}
 }
 
-void		ft_move_l(t_data *data, double pdx, double pdy)
+void		ft_move_r(t_data *data, double pdx, double pdy)
 {
 	if (data->mxmap > (int)floor((data->x_pplayer + pdy) / SIZE)
 		&& (int)floor((data->x_pplayer + pdy) / SIZE) > 0
@@ -90,7 +90,7 @@ void		ft_move_l(t_data *data, double pdx, double pdy)
 	}
 }
 
-void		ft_move_r(t_data *data, double pdx, double pdy)
+void		ft_move_l(t_data *data, double pdx, double pdy)
 {
 	if (data->mxmap > (int)floor((data->x_pplayer - pdy) / SIZE)
 		&& (int)floor((data->x_pplayer - pdy) / SIZE) > 0

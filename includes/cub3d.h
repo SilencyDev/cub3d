@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 15:50:03 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:39:32 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef struct	s_data
 	double	vy;
 	double	dv;
 	double	dh;
-	double	d;
+	double	*d;
 	double	dx;
 	double	dy;
 	int		forward;
@@ -151,7 +151,7 @@ void	ft_parsing_setting(t_data *data, int fd);
 int		count_max_map(char *line, t_data *data, int y);
 void	ft_save(t_data *data);
 void	ft_header(t_data *data, int fd);
-int		ft_wall_size(t_data *data, double iangle);
+int		ft_wall_size(t_data *data, double iangle, int width);
 void	ft_mlx(t_data *data);
 void	ft_parsing_map(t_data *data, int fd);
 int		set_map(char *line, t_data *data, int y);

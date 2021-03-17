@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:51:53 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 15:46:08 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:45:43 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,17 +159,19 @@ void	ft_mlx(t_data *data)
 	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx_win, 17, 0, ft_exit, data);
+	if (!(data->d = malloc(sizeof(double) * data->width)))
+		ft_error("Wall's distance couldn't be malloc");
 	mlx_loop_hook(data->mlx_ptr, ft_imprim, data);
 	mlx_loop(data->mlx_ptr);
 }
 
-int		ft_wall_size(t_data *data, double iangle)
+int		ft_wall_size(t_data *data, double iangle, int x)
 {
 	data->dv = fabs((data->x_pplayer - data->vx) / cos(data->pa));
 	data->dh = fabs((data->x_pplayer - data->hx) / cos(data->pa));
 	data->dx = data->dv < data->dh ? data->vx : data->hx;
 	data->dy = data->dv < data->dh ? data->vy : data->hy;
-	data->d = data->dv < data->dh ? data->dv : data->dh;
-	data->d = data->d * cos(iangle - data->pa);
-	return (ceil((SIZE / data->d) * (data->width / 2) / tan(FOV2 * DTOR)));
+	data->d[x] = data->dv < data->dh ? data->dv : data->dh;
+	data->d[x] = data->d[x] * cos(iangle - data->pa);
+	return (ceil((SIZE / data->d[x]) * (data->width / 2) / tan(FOV2 * DTOR)));
 }
