@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 17:30:14 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 13:54:27 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:17:20 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_init(t_data *data)
 	data->vy = 0;
 	data->one = 0;
 	data->nb_player = 0;
+	data->nb_sprite = 0;
 }
 
 void	ft_init_player(t_data *data)

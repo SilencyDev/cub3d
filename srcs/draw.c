@@ -6,11 +6,17 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:42:28 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 16:47:21 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:11:32 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	angle_limit(double *angle)
+{
+	*angle = ceil(*angle) >= (2.0 * PI) ? *angle - (2.0 * PI) : *angle;
+	*angle = *angle < 0.0 ? (2.0 * PI) + *angle : *angle;
+}
 
 int			ft_imprim(t_data *data)
 {
@@ -21,14 +27,17 @@ int			ft_imprim(t_data *data)
 	ft_move(data);
 	iangle = data->pa;
 	data->pa -= FOV2 * DTOR;
+	set_sprite_distance(data);
 	while (width--)
 	{
 		check_horizontal(data);
 		check_vertical(data);
 		ft_render(ft_wall_size(data, iangle, width), width, data);
 		data->pa += (FOV * DTOR / data->width);
+		angle_limit(&data->pa);
 	}
 	data->pa = iangle;
+	sprite(data);
 	ft_minimap(data);
 	if (data->save)
 		ft_save(data);

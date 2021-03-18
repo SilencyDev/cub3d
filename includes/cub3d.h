@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 16:39:32 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/18 15:56:52 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@
 # define SPEED 5.0
 # define INC (FOV * 1.0 / WIDTH)
 # define PI M_PI
-# define N (2.0 * PI)
+# define N (1.0/2.0 * PI)
 # define E 0.0
 # define S (PI * 3.0/2.0)
 # define W PI
 # define DTOR (PI / 180.0)
+# define RTOD (180.0 / PI)
 # define SIZE 64.0
 
 typedef struct		s_texture
@@ -71,15 +72,7 @@ typedef struct	s_sprite
 {
 	double	sx;
 	double	sy;
-	double	hx;
-	double	hy;
-	double	vx;
-	double	vy;
-	double	dv;
-	double	dh;
 	double	d;
-	double	dx;
-	double	dy;
 }				t_sprite;
 
 typedef struct	s_color
@@ -102,6 +95,7 @@ typedef struct	s_data
 	char	*s_path;
 	char	*w_path;
 	char	*e_path;
+	int		nb_sprite;
 	char	*sprite_path;
 	void	*mlx_ptr;
 	void	*mlx_win;
@@ -142,9 +136,14 @@ typedef struct	s_data
 	int		rright;
 	t_color		color;
 	t_texture	texture[5];
-	t_sprite	sprite;
+	t_sprite	*sprite;
 }				t_data;
 
+void	print_sprite(double p_sprite, int x, int n, t_data *data);
+void	angle_limit(double *data);
+void	sprite(t_data *data);
+void	set_sprite_distance(t_data *data);
+void	order_sprite(t_data *data);
 int		is_valid_to_left(t_data *data, int y, int x);
 int		is_valid_to_right(t_data *data, int y, int x);
 void	ft_parsing_setting(t_data *data, int fd);

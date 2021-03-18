@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 10:20:56 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 16:52:39 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:42:06 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,11 @@ int		ft_exit(t_data *data)
 void	ft_rotate_l(t_data *data)
 {
 	data->pa += 0.1;
-	if (data->pa < 0)
-		data->pa = 2 * PI + data->pa;
+	angle_limit(&data->pa);
 }
 
 void	ft_rotate_r(t_data *data)
 {
 	data->pa -= 0.1;
-	if (data->pa > 2 * PI)
-		data->pa = data->pa - 2 * PI;
+	angle_limit(&data->pa);
 }

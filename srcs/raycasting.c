@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:51:53 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 16:45:43 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:52:58 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		ft_render(double p_wall, int x, t_data *data)
 	i = 1;
 	n = 0;
 	offset = (p_wall - data->height) / 2;
-	height = data->height;
+	height = data->height - 1;
 	while (height)
 	{
 		if ((height < data->height / 2 - (p_wall / 2) + p_wall)

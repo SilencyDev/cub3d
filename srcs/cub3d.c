@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 16:49:16 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:27:48 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ int	count_max_map(char *line, t_data *data, int y)
 	int	x;
 
 	x = 0;
-	while (*line++)
+	while (*line)
+	{
+		if (*line++ == '2')
+			data->nb_sprite += 1;
 		x++;
+	}
 	data->mxmap = data->mxmap < x ? x : data->mxmap;
 	return (++y);
 }

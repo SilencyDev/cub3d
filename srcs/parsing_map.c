@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 13:47:43 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 14:05:36 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:16:49 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int			is_map_valid(t_data *data)
 
 	y = 0;
 	x = 0;
+	if (!(data->sprite = malloc(sizeof(t_sprite) * data->nb_sprite)))
+		ft_error("Sprite couldn't be malloc");
 	while (y < data->mymap && data->map[y][x])
 	{
 		if (!is_valid_to_right(data, y, x))
-			return (0);
-		if (!is_valid_to_left(data, y, x))
 			return (0);
 		y++;
 		x = 0;
@@ -42,12 +42,20 @@ int			is_map_valid(t_data *data)
 
 int			is_valid_to_left(t_data *data, int y, int x)
 {
+	static int n = 0;
+
 	while (x >= 0 && data->map[y][--x])
 	{
 		if (data->map[y][x] == '1')
 			data->one = 1;
 		if (data->one == 0 && is_charset(data->map[y][x], "02NSEW"))
 			return (0);
+		if (data->map[y][x] == '2')
+		{
+			data->sprite[n].sy = y * 64 + 32;
+			data->sprite[n].sx = x * 64 + 32;
+			n++;
+		}
 	}
 	data->one = 0;
 	return (1);
@@ -77,6 +85,8 @@ int			is_valid_to_right(t_data *data, int y, int x)
 			return (0);
 	}
 	data->one = 0;
+	if (!is_valid_to_left(data, y, x))
+			return (0);
 	return (1);
 }
 
