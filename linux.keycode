@@ -1,0 +1,7 @@
+# define FORWARD 119
+# define LEFT 97
+# define BACKWARD 115
+# define RIGHT 100
+# define RLEFT 65361
+# define RRIGHT 65363
+# define SPACE 32

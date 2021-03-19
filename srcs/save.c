@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 09:42:05 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/18 15:30:17 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:21:04 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_save(t_data *data)
 {
 	int	fd;
 	int	x;
-	int y;
+	int	y;
 
 	if ((fd = open("./save.bmp", O_CREAT | O_RDWR | O_TRUNC)) < 0)
 		ft_error("Can't create save image");
