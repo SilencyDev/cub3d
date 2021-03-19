@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:17 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 19:00:44 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 22:09:20 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ void		ft_mlx(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	mlx_get_screen_size(data->mlx_ptr, &data->screenx, &data->screeny);
-	data->width = (WIDTH > data->screenx) ? data->screenx : WIDTH;
-	data->height = (HEIGHT > data->screeny) ? data->screeny : HEIGHT;
+	data->width = (data->width > data->screenx) ? data->screenx : data->width;
+	data->height = (data->height > data->screeny)
+	? data->screeny : data->height;
 	data->mlx_win =
 	mlx_new_window(data->mlx_ptr, data->width, data->height, "Cub3D!");
 	ft_init_texture(data);
@@ -78,7 +79,7 @@ void		ft_mlx(t_data *data)
 	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->mlx_win, 17, 0, ft_exit, data);
 	if (!(data->d = malloc(sizeof(double) * data->width)))
-		ft_error("Wall's distance couldn't be malloc");
+		ft_error("Wall's distance couldn't be malloc", data);
 	mlx_loop_hook(data->mlx_ptr, ft_imprim, data);
 	mlx_loop(data->mlx_ptr);
 }

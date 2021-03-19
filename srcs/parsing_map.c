@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 13:47:43 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 12:12:57 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 00:06:35 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			is_map_valid(t_data *data)
 	y = 0;
 	x = 0;
 	if (!(data->sprite = malloc(sizeof(t_sprite) * data->nb_sprite)))
-		ft_error("Sprite couldn't be malloc");
+		ft_error("Sprite couldn't be malloc", data);
 	while (y < data->mymap && data->map[y][x])
 	{
 		if (!is_valid_to_right(data, y, x))
@@ -44,7 +44,8 @@ int			is_valid_to_left(t_data *data, int y, int x)
 {
 	static int n = 0;
 
-	while (x >= 0 && data->map[y][--x])
+	x = x == 0 ? x : x - 1;
+	while (x >= 0 && data->map[y][x])
 	{
 		if (data->map[y][x] == '1')
 			data->one = 1;
@@ -56,6 +57,7 @@ int			is_valid_to_left(t_data *data, int y, int x)
 			data->sprite[n].sx = x * 64 + 32;
 			n++;
 		}
+		x--;
 	}
 	data->one = 0;
 	return (1);
@@ -98,8 +100,8 @@ void		ft_parsing_map(t_data *data, int fd)
 
 	ret = 1;
 	y = 0;
-	if (!(data->map = malloc(sizeof(char*) * (int)data->mymap + 1)))
-		ft_error("Malloc of map failed");
+	if (!(data->map = malloc(sizeof(char*) * (int)data->mymap)))
+		ft_error("Malloc of map failed", data);
 	while (ret != 0)
 	{
 		ret = get_next_line(fd, &l) > 0;
@@ -114,7 +116,7 @@ void		ft_parsing_map(t_data *data, int fd)
 			;
 		else
 			y = set_map(l, data, y);
+		ft_memdel((void **)&l);
 	}
-	data->map[y] = NULL;
 	close(fd);
 }

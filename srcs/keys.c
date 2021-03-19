@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 10:20:56 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/18 13:42:06 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 00:02:49 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int		key_press(int keycode, t_data *data)
 	else if (keycode == RRIGHT)
 		data->rright = 1;
 	else if (keycode == SPACE)
-		ft_exit(data);
+		ft_exit(data, 0);
 	return (1);
 }
 
-int		ft_exit(t_data *data)
+int		ft_exit(t_data *data, int i)
 {
 	if (data->img)
 		mlx_destroy_image(data->mlx_ptr, data->img);
@@ -64,7 +64,12 @@ int		ft_exit(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->texture[4].img_ptr);
 	if (data->mlx_win)
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-	exit(0);
+	if (data->mlx_ptr)
+	{
+		free(data->mlx_ptr);
+		data->mlx_ptr = NULL;
+	}
+	exit(i);
 }
 
 void	ft_rotate_l(t_data *data)

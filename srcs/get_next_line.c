@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:33:06 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/23 12:33:24 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 22:52:11 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char				*ft_memalloc(size_t size)
 {
 	void	*ptr;
 
+	ptr = NULL;
 	if (!(ptr = malloc(size)))
 		return (NULL);
 	ft_memset(ptr, 0, size);
@@ -32,7 +33,7 @@ void				*ft_memset(void *s, int c, size_t n)
 	return (s);
 }
 
-int					ft_memdel(char **ptr)
+int					ft_memdel(void **ptr)
 {
 	if (*ptr)
 	{
@@ -48,7 +49,7 @@ int					get_next_line(int fd, char **line)
 {
 	ssize_t		r;
 	char		bf[BUFFER_SIZE + (r = 1)];
-	static char	*p_l;
+	static char	*p_l = NULL;
 	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
@@ -58,7 +59,7 @@ int					get_next_line(int fd, char **line)
 	{
 		bf[r] = '\0';
 		tmp = ft_strjoin(p_l, bf);
-		ft_memdel(&p_l);
+		ft_memdel((void **)&p_l);
 		p_l = tmp;
 	}
 	if (r == 0)
@@ -68,7 +69,7 @@ int					get_next_line(int fd, char **line)
 	else
 		return (-1);
 	tmp = ft_strdup(p_l + (ft_strlen(*line) + (r > 0 ? +1 : +0)));
-	ft_memdel(&p_l);
+	ft_memdel((void **)&p_l);
 	p_l = tmp;
-	return (r == 0 ? 0 * ft_memdel(&p_l) : 1);
+	return (r == 0 ? 0 * ft_memdel((void **)&p_l) : 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/18 14:27:48 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 23:52:27 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	set_map(char *line, t_data *data, int y)
 	int x;
 
 	x = 0;
+	data->map[y] = NULL;
 	if (!(data->map[y] = malloc((int)data->mxmap + 1)))
-		ft_error("Malloc of row's map failed");
+		ft_error("Malloc of row's map failed", data);
 	while (*line)
 		data->map[y][x++] = *line++;
 	data->map[y][x] = '\0';
-	free(line - x);
 	return (++y);
 }
 
@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 	int				fd;
 	t_data			data;
 
-	if (argc == 2 || (argc == 3 && is_save(argv[2])))
+	if (argc == 2 || (argc == 3 && is_save(argv[2], &data)))
 	{
 		data.save = argc == 3 ? 1 : 0;
 		ft_init(&data);
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 		ft_parsing_map(&data, fd);
 		if (!is_map_valid(&data))
 		{
-			ft_putstr_fd("la map est invalide", 1);
+			ft_error("la map est invalide", &data);
 			return (-1);
 		}
 		ft_init_player(&data);

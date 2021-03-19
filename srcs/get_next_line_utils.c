@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 17:06:07 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/02/23 12:33:15 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 22:50:22 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len)
 	int		i;
 
 	i = 0;
+	dest = NULL;
 	if (!s || !(dest = ((int)start >= ft_strlen(s)) ? malloc(1)
 		: malloc(len + 1)))
 		return (NULL);

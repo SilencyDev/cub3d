@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 17:30:14 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/17 17:17:20 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 22:33:53 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	ft_init(t_data *data)
 	data->one = 0;
 	data->nb_player = 0;
 	data->nb_sprite = 0;
+	data->width = 0;
+	data->height = 0;
+	data->c = 0;
+	data->f = 0;
 }
 
 void	ft_init_player(t_data *data)
@@ -62,7 +66,7 @@ void	ft_init_texture(t_data *data)
 		if (!(data->texture[n].img_ptr = mlx_xpm_file_to_image(data->mlx_ptr,
 			data->texture[n].path, &data->texture[n].img_width,
 			&data->texture[n].img_height)))
-			ft_error("Texture's path incorrect");
+			ft_error("Texture's path incorrect", data);
 		data->texture[n].addr_ptr = mlx_get_data_addr(data->texture[n].img_ptr,
 		&data->texture[n].bits_per_pixel_t, &data->texture[n].line_length_t,
 		&data->texture[n].endian_t);

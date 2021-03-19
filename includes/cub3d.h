@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 18:54:02 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 23:01:03 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <float.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 # endif
 # define FORWARD 119
 # define LEFT 97
@@ -34,8 +34,6 @@
 # define RLEFT 65361
 # define RRIGHT 65363
 # define SPACE 32
-# define WIDTH 1080
-# define HEIGHT 720
 # define FOV 60.0
 # define SPEED 5
 # define PI 3.141592653589793
@@ -76,6 +74,7 @@ typedef struct	s_color
 
 typedef struct	s_data
 {
+	char		**texture_tab;
 	int			n;
 	int			offset;
 	int			p_wall;
@@ -155,8 +154,8 @@ int				ft_wall_size(t_data *data, double iangle, int width);
 void			ft_mlx(t_data *data);
 void			ft_parsing_map(t_data *data, int fd);
 int				set_map(char *line, t_data *data, int y);
-int				is_save(char *s);
-void			ft_error(char *s);
+int				is_save(char *s, t_data *data);
+void			ft_error(char *s, t_data *data);
 int				recup_path(char *s, t_data *data);
 int				is_empty_line(char *str, char *charset);
 char			**ft_split_str(char *s, char *charset);
@@ -169,7 +168,7 @@ int				is_ceil_floor_color(char *s, t_data *data);
 int				is_resolution_valid(char *s, t_data *data);
 void			ft_init_texture(t_data *data);
 void			ft_minimap(t_data *data);
-int				ft_exit(t_data *data);
+int				ft_exit(t_data *data, int i);
 unsigned int	get_image_pixel(t_data *data, int x, int y, int n);
 void			init_max_map(t_data *data);
 void			ft_init_player(t_data *data);
@@ -200,7 +199,7 @@ char			*ft_strdup(const char *s1);
 int				ft_strlen(const char *str);
 char			*ft_memalloc(size_t size);
 void			*ft_memset(void *b, int c, size_t len);
-int				ft_memdel(char **ptr);
+int				ft_memdel(void **ptr);
 int				get_next_line(int fd, char **line);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 09:42:05 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 13:21:04 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 22:09:51 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_save(t_data *data)
 	int	y;
 
 	if ((fd = open("./save.bmp", O_CREAT | O_RDWR | O_TRUNC)) < 0)
-		ft_error("Can't create save image");
+		ft_error("Can't create save image", data);
 	ft_header(data, fd);
 	y = (int)data->height;
 	while (y >= 0)
