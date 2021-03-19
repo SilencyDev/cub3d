@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:17 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 17:16:44 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:00:44 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ void		ft_render2(t_data *data, int x, int h, int i)
 void		ft_render(double p_wall, int x, t_data *data)
 {
 	int		height;
-	double	offset;
 	double	i;
-	int		n;
 
 	i = 1;
-	n = 0;
 	data->p_wall = p_wall;
-	offset = (p_wall - data->height) / 2;
 	height = data->height;
 	while (height)
 	{
@@ -69,8 +65,9 @@ void		ft_render(double p_wall, int x, t_data *data)
 void		ft_mlx(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
-	data->width = WIDTH;
-	data->height = HEIGHT;
+	mlx_get_screen_size(data->mlx_ptr, &data->screenx, &data->screeny);
+	data->width = (WIDTH > data->screenx) ? data->screenx : WIDTH;
+	data->height = (HEIGHT > data->screeny) ? data->screeny : HEIGHT;
 	data->mlx_win =
 	mlx_new_window(data->mlx_ptr, data->width, data->height, "Cub3D!");
 	ft_init_texture(data);

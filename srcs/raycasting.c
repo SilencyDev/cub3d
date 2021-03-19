@@ -3,18 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:51:53 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 17:16:34 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:59:33 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-**	mlx_get_screen_size(data->mlx_ptr, &data->screenx, &data->screeny);
-**	(WIDTH > data->screenx) ? data->screenx :
-**	(HEIGHT > data->screeny) ? data->screeny :
-*/
 #include "cub3d.h"
 
 void		check_horizontal2(t_data *data, double ya, double xa)

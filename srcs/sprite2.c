@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:48:38 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 17:57:20 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:56:14 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void		print_sprite(double p_sprite, int x, int n, t_data *data)
 {
 	int		height;
 	double	i;
-	int		j;
 
 	i = 1;
 	data->n = n;
@@ -117,7 +116,6 @@ void		print_sprite(double p_sprite, int x, int n, t_data *data)
 	height = data->height;
 	while (height)
 	{
-		j = p_sprite / 2;
 		if ((height < data->height / 2 - (p_sprite / 2) + p_sprite)
 			&& (height > data->height / 2 - p_sprite / 2))
 		{
