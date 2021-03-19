@@ -6,13 +6,13 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:42:28 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/18 17:11:32 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:13:06 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	angle_limit(double *angle)
+void		angle_limit(double *angle)
 {
 	*angle = ceil(*angle) >= (2.0 * PI) ? *angle - (2.0 * PI) : *angle;
 	*angle = *angle < 0.0 ? (2.0 * PI) + *angle : *angle;

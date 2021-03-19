@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:44:38 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/18 13:28:21 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:24:34 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void		ft_move_f(t_data *data, double pdx, double pdy)
 			&& data->map[(int)floor((data->y_pplayer - pdy) / SIZE)]
 			[(int)floor((data->x_pplayer + pdx) / SIZE)]
 			&& data->map[(int)floor((data->y_pplayer - pdy) / SIZE)]
-			[(int)floor((data->x_pplayer + pdx) / SIZE)] != '1')
+			[(int)floor((data->x_pplayer + pdx) / SIZE)] != '1'
+			&& data->map[(int)floor((data->y_pplayer - pdy) / SIZE)]
+			[(int)floor((data->x_pplayer + pdx) / SIZE)] != '2')
 		{
 			data->x_pplayer += pdx;
 			data->y_pplayer -= pdy;
@@ -59,11 +61,13 @@ void		ft_move_b(t_data *data, double pdx, double pdy)
 		&& data->mymap > (int)floor((data->y_pplayer + pdy) / SIZE)
 		&& (int)floor((data->y_pplayer + pdy) / SIZE) > 0)
 	{
-		if (data->mymap > (int)floor((data->y_pplayer + pdy) / SIZE) &&
-			data->map[(int)floor((data->y_pplayer + pdy) / SIZE)]
-			[(int)floor((data->x_pplayer - pdx) / SIZE)] &&
-			data->map[(int)floor((data->y_pplayer + pdy) / SIZE)]
-			[(int)floor((data->x_pplayer - pdx) / SIZE)] != '1')
+		if (data->mymap > (int)floor((data->y_pplayer + pdy) / SIZE)
+			&& data->map[(int)floor((data->y_pplayer + pdy) / SIZE)]
+			[(int)floor((data->x_pplayer - pdx) / SIZE)]
+			&& data->map[(int)floor((data->y_pplayer + pdy) / SIZE)]
+			[(int)floor((data->x_pplayer - pdx) / SIZE)] != '1'
+			&& data->map[(int)floor((data->y_pplayer + pdy) / SIZE)]
+			[(int)floor((data->x_pplayer - pdx) / SIZE)] != '2')
 		{
 			data->x_pplayer -= pdx;
 			data->y_pplayer += pdy;
@@ -78,11 +82,13 @@ void		ft_move_r(t_data *data, double pdx, double pdy)
 		&& data->mymap > (int)floor((data->y_pplayer + pdx) / SIZE)
 		&& (int)floor((data->y_pplayer + pdx) / SIZE) > 0)
 	{
-		if (data->mymap > (int)floor((data->y_pplayer + pdx) / SIZE) &&
-			data->map[(int)floor((data->y_pplayer + pdx) / SIZE)]
-			[(int)floor((data->x_pplayer + pdy) / SIZE)] &&
-			data->map[(int)floor((data->y_pplayer + pdx) / SIZE)]
-			[(int)floor((data->x_pplayer + pdy) / SIZE)] != '1')
+		if (data->mymap > (int)floor((data->y_pplayer + pdx) / SIZE)
+			&& data->map[(int)floor((data->y_pplayer + pdx) / SIZE)]
+			[(int)floor((data->x_pplayer + pdy) / SIZE)]
+			&& data->map[(int)floor((data->y_pplayer + pdx) / SIZE)]
+			[(int)floor((data->x_pplayer + pdy) / SIZE)] != '1'
+			&& data->map[(int)floor((data->y_pplayer + pdx) / SIZE)]
+			[(int)floor((data->x_pplayer + pdy) / SIZE)] != '2')
 		{
 			data->x_pplayer += pdy;
 			data->y_pplayer += pdx;
@@ -101,7 +107,9 @@ void		ft_move_l(t_data *data, double pdx, double pdy)
 			&& data->map[(int)floor((data->y_pplayer - pdx) / SIZE)]
 			[(int)floor((data->x_pplayer - pdy) / SIZE)]
 			&& data->map[(int)floor((data->y_pplayer - pdx) / SIZE)]
-			[(int)floor((data->x_pplayer - pdy) / SIZE)] != '1')
+			[(int)floor((data->x_pplayer - pdy) / SIZE)] != '1'
+			&& data->map[(int)floor((data->y_pplayer - pdx) / SIZE)]
+			[(int)floor((data->x_pplayer - pdy) / SIZE)] != '2')
 		{
 			data->x_pplayer -= pdy;
 			data->y_pplayer -= pdx;

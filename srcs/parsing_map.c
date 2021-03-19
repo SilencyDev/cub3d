@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 13:47:43 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/18 10:16:49 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:12:57 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			is_valid_to_right(t_data *data, int y, int x)
 	}
 	data->one = 0;
 	if (!is_valid_to_left(data, y, x))
-			return (0);
+		return (0);
 	return (1);
 }
 

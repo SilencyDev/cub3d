@@ -6,13 +6,13 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 12:39:28 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/18 17:53:37 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:19:22 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_sprite(double p_sprite, int x, int n, t_data *data)
+void		print_sprite(double p_sprite, int x, int n, t_data *data)
 {
 	int		height;
 	double	offset;
@@ -21,7 +21,7 @@ void	print_sprite(double p_sprite, int x, int n, t_data *data)
 
 	i = 1;
 	offset = (p_sprite - data->height) / 2;
-	height = data->height - 1;
+	height = data->height;
 	while (height)
 	{
 		j = p_sprite / 2;
@@ -32,15 +32,23 @@ void	print_sprite(double p_sprite, int x, int n, t_data *data)
 			{
 				while (j)
 				{
-					if ((x - j + 1) > 0 && (data->sprite[n].d < data->d[x - j + 1]))
-						my_mlx_pixel_put(data, x - j + 1, height, 0x00FFFFFF);
+					if ((x - j) > 0 && (x - j) < data->width && (data->sprite[n].d < data->d[x - j])
+						&& get_image_pixel(data, (int)(round((p_sprite / 2 - j)) * 64 / p_sprite) % 64,
+						(int)round(p_sprite - offset - i) * 64 / p_sprite, 4) != 0x980088)
+						my_mlx_pixel_put(data, x - j, height,
+						get_image_pixel(data, (int)(round((p_sprite / 2 - j)) * 64 / p_sprite) % 64,
+						(int)round(p_sprite - offset - i) * 64 / p_sprite, 4));
 					j--;
 				}
 				j = p_sprite / 2;
 				while (j)
 				{
-					if ((x + j - 1) < data->width && (data->sprite[n].d < data->d[x + j - 1]))
-						my_mlx_pixel_put(data, x + j - 1, height, 0x00FFFFFF);
+					if ((x + j - 1) < data->width && (x + j - 1) > 0 && (data->sprite[n].d < data->d[x + j - 1])
+						&& get_image_pixel(data, (int)(round((p_sprite / 2 + j - 1)) * 64 / p_sprite) % 64,
+						(int)round(p_sprite - offset - i) * 64 / p_sprite, 4) != 0x980088)
+						my_mlx_pixel_put(data, x + j - 1, height,
+						get_image_pixel(data, (int)(round((p_sprite / 2 + j - 1)) * 64 / p_sprite) % 64,
+						(int)round(p_sprite - offset - i) * 64 / p_sprite, 4));
 					j--;
 				}
 			}
@@ -48,15 +56,23 @@ void	print_sprite(double p_sprite, int x, int n, t_data *data)
 			{
 				while (j)
 				{
-					if ((x - j + 1) > 0 && (data->sprite[n].d < data->d[x - j + 1]))
-						my_mlx_pixel_put(data, x - j + 1, height, 0x00FFFFFF);
+					if ((x - j) > 0 && (x - j) < data->width && (data->sprite[n].d < data->d[x - j])
+						&& get_image_pixel(data, (int)(round((p_sprite / 2 - j)) * 64 / p_sprite) % 64,
+						(int)round(p_sprite - i) * 64 / p_sprite, 4) != 0x980088)
+						my_mlx_pixel_put(data, x - j, height,
+						get_image_pixel(data, (int)round((p_sprite / 2 - j)) * 64 / p_sprite,
+						(int)round(p_sprite - i) * 64 / p_sprite, 4));
 					j--;
 				}
 				j = p_sprite / 2;
 				while (j)
 				{
-					if ((x + j - 1) < data->width && (data->sprite[n].d < data->d[x + j - 1]))
-						my_mlx_pixel_put(data, x + j - 1, height, 0x00FFFFFF);
+					if ((x + j - 1) < data->width && (x + j - 1) > 0 && (data->sprite[n].d < data->d[x + j - 1])
+						&& get_image_pixel(data, (int)(round((p_sprite / 2 - j)) * 64 / p_sprite) % 64,
+						(int)round(p_sprite - i) * 64 / p_sprite, 4) != 0x980088)
+						my_mlx_pixel_put(data, x + j - 1, height,
+						get_image_pixel(data, (int)round((p_sprite / 2 - j)) * 64 / p_sprite,
+						(int)round(p_sprite - i) * 64 / p_sprite, 4));
 					j--;
 				}
 			}
@@ -66,7 +82,7 @@ void	print_sprite(double p_sprite, int x, int n, t_data *data)
 	}
 }
 
-void	sprite(t_data *data)
+void		sprite(t_data *data)
 {
 	int		n;
 	double	beta;
@@ -77,32 +93,29 @@ void	sprite(t_data *data)
 	n = 0;
 	while (n < data->nb_sprite)
 	{
-		beta = atan2(data->sprite[n].sy - data->y_pplayer
-		,data->sprite[n].sx - data->x_pplayer);
-		alpha = (data->pa + (FOV/2 * DTOR)) + beta;
+		beta = atan2(data->sprite[n].sy - data->y_pplayer,
+		data->sprite[n].sx - data->x_pplayer);
+		alpha = (data->pa + (FOV / 2 * DTOR)) + beta;
 		alpha = ceil(alpha) >= (2.0 * PI) ? alpha - (2.0 * PI) : alpha;
-		// alpha = floor(alpha) < 0.0 ? alpha + (2.0 * PI) : alpha;
 		x = floor(alpha * data->width / (FOV * DTOR));
 		p_sprite = ceil((SIZE / data->sprite[n].d) * (data->width / 2)
 		/ tan(FOV2 * DTOR));
-		print_sprite(p_sprite, x, n, data);
-		printf("[n:%d][x:%d] [p_sprite:%d] [beta:%f] [alpha:%f] [pa:%f] [sx:%f]\n", n, x, p_sprite, beta * RTOD, alpha * RTOD, data->pa * RTOD, data->sprite[n].sx);
-		n++;
+		print_sprite(p_sprite, x, n++, data);
 	}
 }
 
-void	order_sprite(t_data *data)
+void		order_sprite(t_data *data)
 {
-	int n;
-	int j;
-	double tmp;
+	int		n;
+	int		j;
+	double	tmp;
 
 	tmp = 0;
-	n = 0;
-	while (n < data->nb_sprite - 1)
+	n = -1;
+	while (n++ < data->nb_sprite - 1)
 	{
-		j = n + 1;
-		while (j < data->nb_sprite)
+		j = n;
+		while (++j < data->nb_sprite)
 		{
 			if (data->sprite[n].d < data->sprite[j].d)
 			{
@@ -116,15 +129,13 @@ void	order_sprite(t_data *data)
 				data->sprite[n].sy = data->sprite[j].sy;
 				data->sprite[j].sy = tmp;
 			}
-			j++;
 		}
-		n++;
 	}
 }
 
-void	set_sprite_distance(t_data *data)
+void		set_sprite_distance(t_data *data)
 {
-	int n;
+	int	n;
 
 	n = 0;
 	while (n < data->nb_sprite)

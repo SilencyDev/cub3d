@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:51:53 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/18 17:52:58 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/19 10:54:30 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		ft_render(double p_wall, int x, t_data *data)
 	i = 1;
 	n = 0;
 	offset = (p_wall - data->height) / 2;
-	height = data->height - 1;
+	height = data->height;
 	while (height)
 	{
 		if ((height < data->height / 2 - (p_wall / 2) + p_wall)
@@ -78,13 +78,13 @@ void	check_horizontal(t_data *data)
 		data->hx = DBL_MAX;
 	else
 	{
-		if (sin(data->pa) > 0)
+		if (sin(data->pa) > 0.0)
 		{
 			data->hy = floor(data->y_pplayer / SIZE) * SIZE - 0.000000001;
 			xa = SIZE / tan(data->pa);
 			ya *= -1;
 		}
-		else if (sin(data->pa) < 0)
+		else if (sin(data->pa) < 0.0)
 		{
 			data->hy = floor(data->y_pplayer / SIZE) * SIZE + SIZE;
 			xa = -SIZE / tan(data->pa);
@@ -117,13 +117,13 @@ void	check_vertical(t_data *data)
 		data->vy = DBL_MAX;
 	else
 	{
-		if (cos(data->pa) < 0)
+		if (cos(data->pa) < 0.0)
 		{
 			data->vx = floor(data->x_pplayer / SIZE) * SIZE - 0.000000001;
 			ya = SIZE * tan(data->pa);
 			xa *= -1;
 		}
-		else if (cos(data->pa) > 0)
+		else if (cos(data->pa) > 0.0)
 		{
 			data->vx = floor(data->x_pplayer / SIZE) * SIZE + SIZE;
 			ya = -SIZE * tan(data->pa);
