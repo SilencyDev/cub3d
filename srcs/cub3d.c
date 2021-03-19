@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:19 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 23:52:27 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 00:36:48 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int	main(int argc, char **argv)
 
 	if (argc == 2 || (argc == 3 && is_save(argv[2], &data)))
 	{
+		if ((fd = open(argv[1], O_DIRECTORY)) != -1)
+			ft_error("This is a directory, not a .cub file", &data);
+		if ((fd = open(argv[1], O_RDONLY)) == -1)
+			ft_error(".cub invalid", &data);
 		data.save = argc == 3 ? 1 : 0;
 		ft_init(&data);
 		fd = open(argv[1], O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 10:20:56 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 00:02:49 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 00:41:24 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,19 @@ int		ft_exit(t_data *data, int i)
 {
 	if (data->img)
 		mlx_destroy_image(data->mlx_ptr, data->img);
-	if (data->texture[0].img_ptr)
-		mlx_destroy_image(data->mlx_ptr, data->texture[0].img_ptr);
-	if (data->texture[1].img_ptr)
-		mlx_destroy_image(data->mlx_ptr, data->texture[1].img_ptr);
-	if (data->texture[2].img_ptr)
-		mlx_destroy_image(data->mlx_ptr, data->texture[2].img_ptr);
-	if (data->texture[3].img_ptr)
-		mlx_destroy_image(data->mlx_ptr, data->texture[3].img_ptr);
-	if (data->texture[4].img_ptr)
-		mlx_destroy_image(data->mlx_ptr, data->texture[4].img_ptr);
+	if (data->nb_player)
+	{
+		if (data->texture[0].img_ptr && data->b_path != 0)
+			mlx_destroy_image(data->mlx_ptr, data->texture[0].img_ptr);
+		if (data->texture[1].img_ptr && data->b_path != 1)
+			mlx_destroy_image(data->mlx_ptr, data->texture[1].img_ptr);
+		if (data->texture[2].img_ptr && data->b_path != 2)
+			mlx_destroy_image(data->mlx_ptr, data->texture[2].img_ptr);
+		if (data->texture[3].img_ptr && data->b_path != 3)
+			mlx_destroy_image(data->mlx_ptr, data->texture[3].img_ptr);
+		if (data->texture[4].img_ptr && data->b_path != 4)
+			mlx_destroy_image(data->mlx_ptr, data->texture[4].img_ptr);
+	}
 	if (data->mlx_win)
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	if (data->mlx_ptr)

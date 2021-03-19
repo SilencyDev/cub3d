@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 23:01:03 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 00:53:43 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define RRIGHT 65363
 # define SPACE 32
 # define FOV 60.0
-# define SPEED 5
+# define SPEED 7
 # define PI 3.141592653589793
 # define N 1.570796326790000
 # define E 0.0
@@ -74,6 +74,7 @@ typedef struct	s_color
 
 typedef struct	s_data
 {
+	int			b_path;
 	char		**texture_tab;
 	int			n;
 	int			offset;

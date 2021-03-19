@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 17:30:14 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 22:33:53 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 00:40:29 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_init_texture(t_data *data)
 	int		n;
 
 	n = 0;
+	data->b_path = 0;
 	while (n < 5)
 	{
 		data->texture[n].img_height = 64;
@@ -66,7 +67,10 @@ void	ft_init_texture(t_data *data)
 		if (!(data->texture[n].img_ptr = mlx_xpm_file_to_image(data->mlx_ptr,
 			data->texture[n].path, &data->texture[n].img_width,
 			&data->texture[n].img_height)))
+		{
+			data->b_path = n;
 			ft_error("Texture's path incorrect", data);
+		}
 		data->texture[n].addr_ptr = mlx_get_data_addr(data->texture[n].img_ptr,
 		&data->texture[n].bits_per_pixel_t, &data->texture[n].line_length_t,
 		&data->texture[n].endian_t);
