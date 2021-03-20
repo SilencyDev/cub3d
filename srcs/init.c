@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 17:30:14 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 00:40:29 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 18:24:35 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,21 @@ void	ft_init(t_data *data)
 	data->nb_sprite = 0;
 	data->width = 0;
 	data->height = 0;
+	ft_init_ptr(data);
+}
+
+void	ft_init_ptr(t_data *data)
+{
+	data->img = NULL;
+	data->mlx_ptr = NULL;
+	data->mlx_win = NULL;
+	data->map = NULL;
+	data->sprite = NULL;
+	data->d = NULL;
 	data->c = 0;
 	data->f = 0;
+	data->parsing = 0;
+	data->parsing_order = 0;
 }
 
 void	ft_init_player(t_data *data)
@@ -52,6 +65,7 @@ void	ft_init_player(t_data *data)
 		data->pa = S;
 	if (data->player == 'E')
 		data->pa = E;
+	data->parsing = 1;
 }
 
 void	ft_init_texture(t_data *data)
@@ -68,9 +82,10 @@ void	ft_init_texture(t_data *data)
 			data->texture[n].path, &data->texture[n].img_width,
 			&data->texture[n].img_height)))
 		{
-			data->b_path = n;
+			data->b_path = n + 1;
 			ft_error("Texture's path incorrect", data);
 		}
+		ft_memdel((void **)&data->texture[n].path);
 		data->texture[n].addr_ptr = mlx_get_data_addr(data->texture[n].img_ptr,
 		&data->texture[n].bits_per_pixel_t, &data->texture[n].line_length_t,
 		&data->texture[n].endian_t);

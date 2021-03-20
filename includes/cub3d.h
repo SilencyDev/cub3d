@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 00:53:43 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 18:49:01 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ typedef struct	s_color
 
 typedef struct	s_data
 {
+	int			map_set;
+	int			parsing_order;
+	int			parsing;
 	int			b_path;
 	char		**texture_tab;
 	int			n;
@@ -133,6 +136,16 @@ typedef struct	s_data
 	t_sprite	*sprite;
 }				t_data;
 
+void			recup_path2(t_data *data, char **str, char *path);
+int				is_valid_to_bottom(t_data *data, int y, int x);
+int				is_valid_to_top(t_data *data, int y, int x);
+void			color_check(char **str, t_data *data, int i);
+void			ft_strcpy2(char *path, char *str);
+void			path_order(t_data *data, char **str, int i);
+void			free_tab(char **s, int i);
+void			ft_exit2(t_data *data, int i);
+void			ft_init_ptr(t_data *data);
+int				is_numspace(char *str);
 void			print_sprite1(t_data *data, int height, int i, int x);
 void			print_sprite1_bis(t_data *data, int height, int i, int x);
 void			print_sprite2(t_data *data, int height, int i, int x);
@@ -193,11 +206,11 @@ void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void			ft_init(t_data *data);
 void			ft_print_tab(t_data *data);
 char			is_charset(char c, char *charset);
-char			*ft_strchr(const char *s, int c);
-char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
-char			*ft_strdup(const char *s1);
-int				ft_strlen(const char *str);
+char			*ft_strchr(char *s, int c);
+char			*ft_strjoin(char *s1, char *s2);
+char			*ft_substr(char *s, unsigned int start, size_t len);
+char			*ft_strdup(char *s1);
+int				ft_strlen(char *str);
 char			*ft_memalloc(size_t size);
 void			*ft_memset(void *b, int c, size_t len);
 int				ft_memdel(void **ptr);

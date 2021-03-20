@@ -6,23 +6,25 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 17:06:07 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 22:50:22 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 13:03:08 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			ft_strlen(const char *s)
+int			ft_strlen(char *s)
 {
 	int		n;
 
 	n = 0;
+	if (!s)
+		return (0);
 	while (s[n])
 		n++;
 	return (n);
 }
 
-char		*ft_strdup(const char *str)
+char		*ft_strdup(char *str)
 {
 	char	*new;
 	ssize_t	i;
@@ -35,7 +37,7 @@ char		*ft_strdup(const char *str)
 	return (new);
 }
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char		*ft_strjoin(char *s1, char *s2)
 {
 	char	*dest;
 	int		len;
@@ -47,15 +49,15 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	if (!(dest = malloc(sizeof(char *) * len + 1)))
 		return (NULL);
 	dest_init = dest;
-	while (*(char *)s1)
-		*dest++ = *(char *)s1++;
-	while (*(char *)s2)
-		*dest++ = *(char *)s2++;
+	while (*s1)
+		*dest++ = *s1++;
+	while (*s2)
+		*dest++ = *s2++;
 	*dest = '\0';
 	return (dest_init);
 }
 
-char		*ft_substr(char const *s, unsigned int start, size_t len)
+char		*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*dest;
 	int		i;
@@ -67,16 +69,16 @@ char		*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if ((int)start < ft_strlen(s))
 		while (s[start] && len--)
-			dest[i++] = (char)s[start++];
+			dest[i++] = s[start++];
 	dest[i] = '\0';
 	return (dest);
 }
 
-char		*ft_strchr(const char *s, int c)
+char		*ft_strchr(char *s, int c)
 {
 	char	*str;
 
-	str = (char *)s;
+	str = s;
 	while (*str != c)
 		if (!*str++)
 			return (NULL);

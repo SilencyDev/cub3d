@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:17 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 22:09:20 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 02:09:13 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ void		ft_mlx(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	mlx_get_screen_size(data->mlx_ptr, &data->screenx, &data->screeny);
-	data->width = (data->width > data->screenx) ? data->screenx : data->width;
-	data->height = (data->height > data->screeny)
+	data->width = (data->width > data->screenx || data->width < 320)
+	? data->screenx : data->width;
+	data->height = (data->height > data->screeny || data->height < 200)
 	? data->screeny : data->height;
 	data->mlx_win =
 	mlx_new_window(data->mlx_ptr, data->width, data->height, "Cub3D!");

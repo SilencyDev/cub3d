@@ -6,7 +6,7 @@
 #    By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/23 11:51:41 by kmacquet          #+#    #+#              #
-#    Updated: 2021/03/19 19:18:57 by kmacquet         ###   ########.fr        #
+#    Updated: 2021/03/20 18:39:54 by kmacquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS =	srcs/get_next_line.c srcs/get_next_line_utils.c \
 		srcs/cub3d.c srcs/raycasting.c srcs/parsing.c \
 		srcs/init.c srcs/libft.c srcs/error.c srcs/save.c \
 		srcs/parsing_map.c srcs/sprite.c srcs/raycasting2.c \
-		srcs/sprite2.c
+		srcs/sprite2.c srcs/parsing_map2.c srcs/parsing_utils.c
 OBJS = $(SRCS:.c=.o)
 ARRCS = ar -rcs
 RM = rm -f
