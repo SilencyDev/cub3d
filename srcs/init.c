@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 17:30:14 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 18:24:35 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:45:10 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_init_ptr(t_data *data)
 	data->f = 0;
 	data->parsing = 0;
 	data->parsing_order = 0;
+	data->map_set = 0;
 }
 
 void	ft_init_player(t_data *data)

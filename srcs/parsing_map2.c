@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 18:28:03 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 19:24:02 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:54:50 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int				is_valid_to_left(t_data *data, int y, int x)
 {
 	static int	n = 0;
 
+	data->one = 0;
 	x = x >= data->mxmap ? x - 1 : x;
 	while (x >= 0 && data->map[y][x])
 	{
@@ -23,7 +24,7 @@ int				is_valid_to_left(t_data *data, int y, int x)
 			data->one = 1;
 		if (data->map[y][x] == ' ')
 			data->one = 0;
-		if (data->one == 0 && is_charset(data->map[y][x], "02NSEW"))
+		if (data->one == 0 && !is_charset(data->map[y][x], "1 "))
 			return (0);
 		if (data->map[y][x] == '2')
 		{
@@ -61,8 +62,7 @@ int				is_valid_to_right(t_data *data, int y, int x)
 			return (0);
 		x++;
 	}
-	data->one = 0;
-	if (!is_valid_to_left(data, y, x))
+	if (!is_valid_to_left(data, y, --x))
 		return (0);
 	return (1);
 }

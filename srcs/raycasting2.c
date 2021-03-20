@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:17 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 02:09:13 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/03/20 20:02:12 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		ft_mlx(t_data *data)
 	&data->bits_per_pixel, &data->line_length, &data->endian);
 	mlx_hook(data->mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->mlx_win, 3, 1L << 1, key_release, data);
-	mlx_hook(data->mlx_win, 17, 0, ft_exit, data);
+	mlx_hook(data->mlx_win, 33, 1L << 17, ft_exit, data);
 	if (!(data->d = malloc(sizeof(double) * data->width)))
 		ft_error("Wall's distance couldn't be malloc", data);
 	mlx_loop_hook(data->mlx_ptr, ft_imprim, data);
