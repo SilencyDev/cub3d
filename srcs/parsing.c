@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:53:26 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 18:42:08 by kmacquet         ###   ########.fr       */
+/*   Updated: 2021/06/11 12:42:08 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,6 @@ void		ft_parsing_setting(t_data *data, int fd)
 		ret = get_next_line(fd, &l) > 0;
 		if (is_empty_line(l, " 	\t\v\r\f\n"))
 			;
-		else if (*l == 'R')
-			is_resolution_valid(l + 2, data);
-		else if ((((*l == 'N' && *(l + 1) == 'O')
-			|| (*l == 'S' && *(l + 1) == 'O')
-			|| (*l == 'W' && *(l + 1) == 'E') || (*l == 'E' && *(l + 1) ==
-			'A'))) || (*l == 'S' && *(l + 1) != 'O'))
-			recup_path(l, data);
-		else if ((*l == 'F')
-			|| (*l == 'C'))
-			is_ceil_floor_color(l, data);
 		else
 			data->mymap = count_max_map(l, data, data->mymap);
 		ft_memdel((void **)&l);
