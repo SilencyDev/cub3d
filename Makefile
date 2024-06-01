@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/23 11:51:41 by kmacquet          #+#    #+#              #
-#    Updated: 2021/03/20 18:39:54 by kmacquet         ###   ########.fr        #
+#    Updated: 2024/06/01 22:57:02 by kmacquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -g -Ilibft -Iminilibx-linux -I./includes
+FLAGS = -Wall -Wextra -Werror -g -Ilibft -Iminilibx-linux -Imlx -I./includes
 SRCS =	srcs/get_next_line.c srcs/get_next_line_utils.c \
 		srcs/draw.c srcs/move.c srcs/utils.c srcs/keys.c \
 		srcs/cub3d.c srcs/raycasting.c srcs/parsing.c \
@@ -32,7 +32,7 @@ bonus : $(NAME)
 	$(CC) $(FLAGS) -o $(<:.c=.o) -c $<
 
 $(NAME):$(OBJS)
-	$(CC) $(OBJS) -L minilibx-linux -lmlx -lm -lbsd -lX11 -lXext -o $(NAME)
+	$(CC) $(OBJS) -Lminilibx-linux -Lmlx -Iminilibx-linux -L/usr/lib -lmlx -lm -lbsd -lX11 -lXext -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
