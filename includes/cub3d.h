@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:32:22 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 18:49:01 by kmacquet         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:48:51 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ typedef struct	s_data
 	int			parsing;
 	int			b_path;
 	char		**texture_tab;
-	int			n;
+	int			textureIndex;
 	int			offset;
 	int			p_wall;
 	int			p_sprite;
 	int			save;
 	int			screenx;
 	int			screeny;
-	int			f;
-	int			c;
+	int			floorColor;
+	int			ceilingColor;
 	char		*n_path;
 	char		*s_path;
 	char		*w_path;
@@ -136,7 +136,7 @@ typedef struct	s_data
 	t_sprite	*sprite;
 }				t_data;
 
-void			recup_path2(t_data *data, char **str, char *path);
+void			fillTexturePath(t_data *data, char **str, char *path);
 int				is_valid_to_bottom(t_data *data, int y, int x);
 int				is_valid_to_top(t_data *data, int y, int x);
 void			color_check(char **str, t_data *data, int i);

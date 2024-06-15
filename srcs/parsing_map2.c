@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 18:28:03 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 19:54:50 by kmacquet         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:27:28 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int				is_valid_to_left(t_data *data, int y, int x)
 			return (0);
 		if (data->map[y][x] == '2')
 		{
-			data->sprite[n].sy = y * 64 + 32;
-			data->sprite[n].sx = x * 64 + 32;
+			data->sprite[n].sy = y * SIZE + SIZE/2;
+			data->sprite[n].sx = x * SIZE + SIZE/2;
 			n++;
 		}
 		x--;

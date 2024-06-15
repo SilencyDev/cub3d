@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 17:30:14 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 19:45:10 by kmacquet         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:48:53 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_init_ptr(t_data *data)
 	data->map = NULL;
 	data->sprite = NULL;
 	data->d = NULL;
-	data->c = 0;
-	data->f = 0;
+	data->ceilingColor = 0;
+	data->floorColor = 0;
 	data->parsing = 0;
 	data->parsing_order = 0;
 	data->map_set = 0;
@@ -60,11 +60,11 @@ void	ft_init_player(t_data *data)
 	data->y_pplayer = data->y_player * SIZE + SIZE / 2;
 	if (data->player == 'N')
 		data->pa = N;
-	if (data->player == 'W')
+	else if (data->player == 'W')
 		data->pa = W;
-	if (data->player == 'S')
+	else if (data->player == 'S')
 		data->pa = S;
-	if (data->player == 'E')
+	else if (data->player == 'E')
 		data->pa = E;
 	data->parsing = 1;
 }
@@ -77,8 +77,8 @@ void	ft_init_texture(t_data *data)
 	data->b_path = 0;
 	while (n < 5)
 	{
-		data->texture[n].img_height = 64;
-		data->texture[n].img_width = 64;
+		data->texture[n].img_height = (int)SIZE;
+		data->texture[n].img_width = (int)SIZE;
 		if (!(data->texture[n].img_ptr = mlx_xpm_file_to_image(data->mlx_ptr,
 			data->texture[n].path, &data->texture[n].img_width,
 			&data->texture[n].img_height)))

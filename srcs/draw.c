@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 09:42:28 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 14:35:11 by kmacquet         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:26:20 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,6 @@ void		ft_minimap(t_data *data)
 		x = 0;
 		y++;
 	}
-	ft_player(data, floor(data->x_pplayer / 64) + offset,
-	floor(data->y_pplayer / 64) + offset, 0x00FFFF00);
+	ft_player(data, floor(data->x_pplayer / SIZE) + offset,
+	floor(data->y_pplayer / SIZE) + offset, 0x00FFFF00);
 }

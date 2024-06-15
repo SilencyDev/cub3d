@@ -6,7 +6,7 @@
 /*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:53:26 by kmacquet          #+#    #+#             */
-/*   Updated: 2024/06/01 22:58:11 by kmacquet         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:48:51 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int			is_ceil_floor_color(char *s, t_data *data)
 	data->color.rgb =
 	(ft_atoi(str[1]) << 16 | ft_atoi(str[2]) << 8 | ft_atoi(str[3]));
 	if (str[0][0] == 'F')
-		data->f = data->color.rgb;
+		data->floorColor = data->color.rgb;
 	else
-		data->c = data->color.rgb;
+		data->ceilingColor = data->color.rgb;
 	free_tab(str, i);
 	return (1);
 }
 
-void		recup_path2(t_data *data, char **str, char *path)
+void		fillTexturePath(t_data *data, char **str, char *path)
 {
 	if (str[0][0] == 'S' && !str[0][1])
 		data->texture[4].path = path;
@@ -100,7 +100,7 @@ int			recup_path(char *s, t_data *data)
 		ft_error("Path couldn't be malloc", data);
 	}
 	ft_strcpy2(path, str[1]);
-	recup_path2(data, str, path);
+	fillTexturePath(data, str, path);
 	free_tab(str, i);
 	return (1);
 }

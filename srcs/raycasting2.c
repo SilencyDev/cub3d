@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 17:15:17 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/20 20:02:12 by kmacquet         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:48:51 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ void		ft_render2(t_data *data, int x, int h, int i)
 		n = cos(data->pa) > 0 ? 1 : 3;
 		if (data->p_wall > data->height)
 			my_mlx_pixel_put(data, x, h, get_image_pixel(data,
-			(int)data->dy % 64, (int)round((data->p_wall - data->offset - i))
-			* 64 / data->p_wall, n));
+			(int)data->dy % (int)SIZE, (int)round((data->p_wall - data->offset - i))
+			* SIZE / data->p_wall, n));
 		else
 			my_mlx_pixel_put(data, x, h, get_image_pixel(data, (int)data->dy
-			% 64, (int)round((data->p_wall - i)) * 64 / data->p_wall, n));
+			% (int)SIZE, (int)round((data->p_wall - i)) * (int)SIZE / data->p_wall, n));
 	}
 	else
 	{
 		n = sin(data->pa) > 0 ? 0 : 2;
 		if (data->p_wall > data->height)
 			my_mlx_pixel_put(data, x, h, get_image_pixel(data,
-			(int)data->dx % 64, (int)round((data->p_wall - data->offset - i))
-			* 64 / data->p_wall, n));
+			(int)data->dx % (int)SIZE, (int)round((data->p_wall - data->offset - i))
+			* SIZE / data->p_wall, n));
 		else
 			my_mlx_pixel_put(data, x, h, get_image_pixel(data, (int)data->dx
-			% 64, (int)round((data->p_wall - i)) * 64 / data->p_wall, n));
+			% (int)SIZE, (int)round((data->p_wall - i)) * (int)SIZE / data->p_wall, n));
 	}
 }
 
@@ -55,9 +55,9 @@ void		ft_render(double p_wall, int x, t_data *data)
 			&& (height > data->height / 2 - p_wall / 2))
 			ft_render2(data, x, height, i++);
 		else if (!(height < (data->height / 2 - (p_wall / 2) + p_wall)))
-			my_mlx_pixel_put(data, x, height, data->f);
+			my_mlx_pixel_put(data, x, height, data->floorColor);
 		else
-			my_mlx_pixel_put(data, x, height, data->c);
+			my_mlx_pixel_put(data, x, height, data->ceilingColor);
 		height--;
 	}
 }

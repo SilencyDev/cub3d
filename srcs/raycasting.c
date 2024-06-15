@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmacquet <kmacquet@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: kmacquet <kmacquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:51:53 by kmacquet          #+#    #+#             */
-/*   Updated: 2021/03/19 18:59:33 by kmacquet         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:53:21 by kmacquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,21 @@
 
 void		check_horizontal2(t_data *data, double ya, double xa)
 {
-	while (data->mxmap > (int)floor((data->hx) / SIZE)
-		&& (int)floor((data->hx) / SIZE) > 0
-		&& data->mymap > (int)floor((data->hy) / SIZE)
-		&& (int)floor((data->hy) / SIZE) > 0
-		&& data->map[(int)floor((data->hy) / SIZE)]
-		[(int)floor((data->hx) / SIZE)]
-		&& data->map[(int)floor(data->hy / SIZE)]
-		[(int)floor(data->hx / SIZE)] != '1')
+	int currX = (int)floor(data->hx / SIZE);
+	int currY = (int)floor(data->hy / SIZE);
+	while (data->mxmap > currX
+		&& currX > 0
+		&& data->mymap > currY
+		&& currY > 0
+		&& data->map[currY]
+		[currX]
+		&& data->map[currY]
+		[currX] != '1')
 	{
 		data->hx += xa;
 		data->hy += ya;
+		currX = (int)floor(data->hx / SIZE);
+		currY = (int)floor(data->hy / SIZE);
 	}
 }
 
@@ -58,17 +62,21 @@ void		check_horizontal(t_data *data)
 
 void		check_vertical2(t_data *data, double ya, double xa)
 {
-	while (data->mymap > (int)floor((data->vy) / SIZE)
-		&& (int)floor((data->vy) / SIZE) > 0
-		&& data->mxmap > (int)floor((data->vx) / SIZE)
-		&& (int)floor((data->vx) / SIZE) > 0
-		&& data->map[(int)floor((data->vy) / SIZE)]
-		[(int)floor((data->vx) / SIZE)]
-		&& data->map[(int)floor(data->vy / SIZE)]
-		[(int)floor(data->vx / SIZE)] != '1')
+	int currX = (int)floor(data->vx / SIZE);
+	int currY = (int)floor(data->vy / SIZE);
+	while (data->mymap > currY
+		&& currY > 0
+		&& data->mxmap > currX
+		&& currX > 0
+		&& data->map[currY]
+		[currX]
+		&& data->map[currY]
+		[currX] != '1')
 	{
 		data->vx += xa;
 		data->vy += ya;
+		currX = (int)floor(data->vx / SIZE);
+		currY = (int)floor(data->vy / SIZE);
 	}
 }
 
